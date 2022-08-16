@@ -1,9 +1,14 @@
-﻿namespace LabelPlace.Domain.Entities
-{
-    public class Role
-    {
-        public int Id { get; set; } 
+﻿using LabelPlace.Domain.Enums;
+using System.Collections.Generic;
 
-        public string Name { get; set; }
+namespace LabelPlace.Domain.Entities
+{
+    public class Role : BaseEntity
+    {
+        public RoleType Type { get; set; }
+
+        public string Description { get; set; }
+
+        public ICollection<User> Users { get; set; }
     }
 }

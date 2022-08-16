@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelPlace.Api", "LabelPlace.Api\LabelPlace.Api.csproj", "{37E76D73-FE22-41B5-8AE2-8BA35D6454C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.Api", "LabelPlace.Api\LabelPlace.Api.csproj", "{37E76D73-FE22-41B5-8AE2-8BA35D6454C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelPlace.Domain", "LabelPlace.Domain\LabelPlace.Domain.csproj", "{00790692-DA83-42E9-8049-F5D4287B0968}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.Domain", "LabelPlace.Domain\LabelPlace.Domain.csproj", "{00790692-DA83-42E9-8049-F5D4287B0968}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelPlace.DAL", "LabelPlace.DAL\LabelPlace.DAL.csproj", "{72FBE68E-A3FE-4951-9B5E-19111E968BD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{00790692-DA83-42E9-8049-F5D4287B0968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00790692-DA83-42E9-8049-F5D4287B0968}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00790692-DA83-42E9-8049-F5D4287B0968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72FBE68E-A3FE-4951-9B5E-19111E968BD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72FBE68E-A3FE-4951-9B5E-19111E968BD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72FBE68E-A3FE-4951-9B5E-19111E968BD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72FBE68E-A3FE-4951-9B5E-19111E968BD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
