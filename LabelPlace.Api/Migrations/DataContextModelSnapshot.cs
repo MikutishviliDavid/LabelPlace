@@ -13,7 +13,6 @@ namespace LabelPlace.Api.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.17")
@@ -209,7 +208,6 @@ namespace LabelPlace.Api.Migrations
                 {
                     b.Navigation("Projects");
                 });
-#pragma warning restore 612, 618
         }
     }
 }
