@@ -2,8 +2,12 @@
 {
     public enum ProjectStatus
     {
-        Active,
-        Inactive,
-        Paused
+        Undefined = 0,
+        
+        Active = 1,
+
+        Inactive = 2,
+
+        Paused = 3
     }
 }

@@ -2,8 +2,10 @@
 {
     public enum ProjectType
     {
-        Text,
-        Audio,
-        Video
+        Text = 0,
+
+        Audio = 1,
+
+        Video = 2
     }
 }

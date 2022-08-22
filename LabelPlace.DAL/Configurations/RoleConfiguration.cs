@@ -11,6 +11,12 @@ namespace LabelPlace.DAL.Configurations
             builder.HasMany(r => r.Users)
                 .WithMany(u => u.Roles)
                 .UsingEntity(j => j.ToTable("UserRoles"));
+
+            builder.HasKey(k => k.Id);
+
+            builder.Property(p => p.Description).IsRequired();
+
+            builder.Property(p => p.Type).IsRequired();
         }
     }
 }

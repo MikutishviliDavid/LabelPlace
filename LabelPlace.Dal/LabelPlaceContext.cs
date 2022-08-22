@@ -2,14 +2,13 @@
 using LabelPlace.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LabelPlace.DAL
+namespace LabelPlace.Dal
 {
-    public class DataContext : DbContext
+    public class LabelPlaceContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options)
+        public LabelPlaceContext(DbContextOptions<LabelPlaceContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public DbSet<User> Users { get; set; }
@@ -24,10 +23,9 @@ namespace LabelPlace.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CompanyConfiguration());
-            modelBuilder.ApplyConfiguration(new ProjectConfiguration());
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CompanyConfiguration).Assembly);
         }
     }
 }

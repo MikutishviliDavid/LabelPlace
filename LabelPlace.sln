@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.Api", "LabelPlac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.Domain", "LabelPlace.Domain\LabelPlace.Domain.csproj", "{00790692-DA83-42E9-8049-F5D4287B0968}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelPlace.DAL", "LabelPlace.DAL\LabelPlace.DAL.csproj", "{72FBE68E-A3FE-4951-9B5E-19111E968BD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.Dal", "LabelPlace.DAL\LabelPlace.Dal.csproj", "{72FBE68E-A3FE-4951-9B5E-19111E968BD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

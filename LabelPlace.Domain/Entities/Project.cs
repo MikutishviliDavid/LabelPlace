@@ -9,16 +9,16 @@ namespace LabelPlace.Domain.Entities
 
         public string Description { get; set; }
 
-        public ProjectStatus Status { get; set; }
-
         public string SourceDataUrl { get; set; }
+
+        public ProjectStatus Status { get; set; }
 
         public ProjectType Type { get; set; }
 
         public User User { get; set; }
 
-        public ICollection<TextAnnotation> TextAnnotations { get; set; }
-
         public Company Company { get; set; }
+
+        public HashSet<TextAnnotation> TextAnnotations { get; set; } = new HashSet<TextAnnotation>();
     }
 }

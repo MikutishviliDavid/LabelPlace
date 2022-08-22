@@ -2,9 +2,12 @@
 {
     public enum RoleType
     {
-        Adminsitrator,
-        User,
-        Validator,
-        Customer
+        Adminsitrator = 0,
+
+        User = 1,
+
+        Validator = 2,
+
+        Customer = 3
     }
 }

@@ -10,6 +10,6 @@ namespace LabelPlace.Domain.Entities
 
         public string City { get; set; }
 
-        public ICollection<Project> Projects { get; set; } 
+        public HashSet<Project> Projects { get; set; } = new HashSet<Project>();
     }
 }

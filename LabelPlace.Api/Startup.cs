@@ -1,4 +1,5 @@
-using LabelPlace.DAL;
+using LabelPlace.Api.Configurations;
+using LabelPlace.Dal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,16 +21,16 @@ namespace LabelPlace.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            LabelPlaceDatabaseConfiguration connection = new LabelPlaceDatabaseConfiguration();
+            connection = Configuration.GetSection("ConnectionStrings").Get<LabelPlaceDatabaseConfiguration>();
+            
+            var connectionString = connection.ConnectionString;
 
-            services.AddDbContext<DataContext>(options =>
-            options.UseNpgsql(connection, b => b.MigrationsAssembly("LabelPlace.Api")));
+            services.AddDbContext<LabelPlaceContext>(options =>
+            options.UseNpgsql(connectionString, b => b.MigrationsAssembly("LabelPlace.Api")));
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LabelPlace.Api", Version = "v1" });
-            });
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -37,9 +38,14 @@ namespace LabelPlace.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LabelPlace.Api v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "LabelPlace.Api v1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseHttpsRedirection();
 

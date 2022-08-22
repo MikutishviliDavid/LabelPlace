@@ -12,8 +12,8 @@ namespace LabelPlace.Domain.Entities
 
         public string PasswordSalt { get; set; }
 
-        public ICollection<Project> Projects { get; set; }
+        public HashSet<Project> Projects { get; set; } = new HashSet<Project>();
 
-        public ICollection<Role> Roles { get; set; }  
+        public HashSet<Role> Roles { get; set; } = new HashSet<Role>(); 
     }
 }
