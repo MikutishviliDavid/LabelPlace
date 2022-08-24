@@ -8,21 +8,22 @@ namespace LabelPlace.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.HasMany(c => c.Projects)
-                .WithOne(p => p.Company);
-
             builder.HasKey(k => k.Id);
 
+            builder.HasMany(c => c.Projects)
+                .WithOne(p => p.Company)
+                .IsRequired();
+
             builder.Property(p => p.Name)
-                .HasMaxLength(50)
+                .HasMaxLength(64)
                 .IsRequired();
 
             builder.Property(p => p.Country)
-                .HasMaxLength(60)
+                .HasMaxLength(64)
                 .IsRequired();
 
             builder.Property(p => p.City)
-                .HasMaxLength(85)
+                .HasMaxLength(128)
                 .IsRequired();
         }
     }

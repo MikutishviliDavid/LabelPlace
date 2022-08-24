@@ -8,11 +8,11 @@ namespace LabelPlace.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
+            builder.HasKey(k => k.Id);
+
             builder.HasMany(r => r.Users)
                 .WithMany(u => u.Roles)
                 .UsingEntity(j => j.ToTable("UserRoles"));
-
-            builder.HasKey(k => k.Id);
 
             builder.Property(p => p.Description).IsRequired();
 

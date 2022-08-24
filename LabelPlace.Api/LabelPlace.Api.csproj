@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LabelPlace.DAL\LabelPlace.Dal.csproj" />
+    <ProjectReference Include="..\LabelPlace.Dal\LabelPlace.Dal.csproj" />
   </ItemGroup>
 
 </Project>

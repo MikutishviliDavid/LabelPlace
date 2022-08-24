@@ -8,23 +8,21 @@ namespace LabelPlace.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Project> builder)
         {
-            builder.HasMany(p => p.TextAnnotations)
-                .WithOne(t => t.Project);
-
             builder.HasKey(k => k.Id);
 
+            builder.HasMany(p => p.TextAnnotations)
+                .WithOne(t => t.Project)
+                .IsRequired();
+
             builder.Property(p => p.Title)
-                .HasMaxLength(255)
+                .HasMaxLength(256)
                 .IsRequired();
              
             builder.HasIndex(i => i.Title).IsUnique();
 
-            builder.Property(p => p.Description)
-                .IsRequired();
+            builder.Property(p => p.Description).IsRequired();
 
-            builder.Property(p => p.SourceDataUrl)
-                .HasMaxLength(2048)
-                .IsRequired();
+            builder.Property(p => p.SourceDataUrl).IsRequired();
 
             builder.Property(p => p.Status).IsRequired();
 

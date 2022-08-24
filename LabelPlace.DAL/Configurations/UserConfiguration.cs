@@ -8,17 +8,18 @@ namespace LabelPlace.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasMany(u => u.Projects)
-                .WithOne(p => p.User);
-
             builder.HasKey(k => k.Id);
 
+            builder.HasMany(u => u.Projects)
+                .WithOne(p => p.User)
+                .IsRequired();
+
             builder.Property(p => p.Name)
-                .HasMaxLength(100)
+                .HasMaxLength(128)
                 .IsRequired();
 
             builder.Property(p => p.Email)
-                .HasMaxLength(320)
+                .HasMaxLength(512)
                 .IsRequired();
 
             builder.Property(p => p.PasswordHash)
@@ -26,7 +27,7 @@ namespace LabelPlace.DAL.Configurations
                 .IsRequired();
 
             builder.Property(p => p.PasswordSalt)
-                .HasMaxLength(20)
+                .HasMaxLength(32)
                 .IsRequired();
         }
     }
