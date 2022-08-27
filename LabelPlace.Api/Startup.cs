@@ -21,8 +21,7 @@ namespace LabelPlace.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            LabelPlaceDatabaseConfiguration connection = new LabelPlaceDatabaseConfiguration();
-            connection = Configuration.GetSection("LabelPlaceDatabase").Get<LabelPlaceDatabaseConfiguration>();
+            var connection = Configuration.GetSection("LabelPlaceDatabase").Get<LabelPlaceDatabaseConfiguration>();
             
             var connectionString = connection.ConnectionString;
 

@@ -6,6 +6,10 @@ namespace LabelPlace.Dal
 {
     public class LabelPlaceContext : DbContext
     {
+        public LabelPlaceContext()
+        {
+        }
+
         public LabelPlaceContext(DbContextOptions<LabelPlaceContext> options)
             : base(options)
         {
