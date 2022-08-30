@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LabelPlace.DAL.Configurations
+namespace LabelPlace.Dal.Configurations
 {
     public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     {
