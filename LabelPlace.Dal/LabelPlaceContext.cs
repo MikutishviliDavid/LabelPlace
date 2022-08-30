@@ -1,8 +1,8 @@
-﻿using LabelPlace.DataAccess.Configurations;
+﻿using LabelPlace.Dal.Configurations;
 using LabelPlace.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LabelPlace.DataAccess
+namespace LabelPlace.Dal
 {
     public class LabelPlaceContext : DbContext
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LabelPlace.DataAccess.Configurations
+namespace LabelPlace.Dal.Configurations
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {

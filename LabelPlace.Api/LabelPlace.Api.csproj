@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LabelPlace.DataAccess\LabelPlace.DataAccess.csproj" />
+    <ProjectReference Include="..\LabelPlace.Dal\LabelPlace.Dal.csproj" />
   </ItemGroup>
 
 </Project>
