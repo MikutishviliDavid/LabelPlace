@@ -1,5 +1,5 @@
 using LabelPlace.Api.Configurations;
-using LabelPlace.Dal;
+using LabelPlace.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
