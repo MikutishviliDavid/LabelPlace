@@ -1,4 +1,4 @@
-﻿using LabelPlace.DAL.Configurations;
+﻿using LabelPlace.Dal.Configurations;
 using LabelPlace.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
