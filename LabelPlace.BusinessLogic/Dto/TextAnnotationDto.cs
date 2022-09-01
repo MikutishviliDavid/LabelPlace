@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LabelPlace.Domain.Entities
+namespace LabelPlace.BusinessLogic.Dto
 {
-    public class TextAnnotation
+    public class TextAnnotationDto
     {
         public Guid Id { get; set; }
 
@@ -11,6 +10,6 @@ namespace LabelPlace.Domain.Entities
 
         public string LabeledText { get; set; }
 
-        public Project Project { get; set; }
+        public ProjectDto Project { get; set; }
     }
 }
