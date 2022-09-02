@@ -13,8 +13,7 @@ namespace LabelPlace.Dal.Configurations
             builder.Property(p => p.SourceText).IsRequired();
 
             builder.Property(p => p.LabeledText)
-                .HasColumnType("jsonb")
-                .IsRequired();
+                .HasColumnType("jsonb");
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using LabelPlace.Dal.GenericRepository;
 using LabelPlace.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
 
 namespace LabelPlace.Dal.UnitOfWork
 {

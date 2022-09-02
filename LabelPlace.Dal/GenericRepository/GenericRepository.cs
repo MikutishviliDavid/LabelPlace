@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace LabelPlace.Dal.GenericRepository
 {
@@ -18,36 +17,9 @@ namespace LabelPlace.Dal.GenericRepository
             _entities = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+        public virtual IEnumerable<TEntity> GetAll()
         {
-            IQueryable<TEntity> query = _entities;
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
-            }
-        }
-
-        public virtual TEntity GetById(object id)
-        {
-            return _entities.Find(id);
+            return _context.Set<TEntity>().ToList();
         }
 
         public virtual void Insert(TEntity entity)
