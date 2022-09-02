@@ -14,13 +14,19 @@ namespace LabelPlace.Dal.Configurations
                 .WithOne(p => p.User)
                 .IsRequired();
 
-            builder.Property(p => p.Name)
+            builder.Property(p => p.FirstName)
+                .HasMaxLength(128)
+                .IsRequired();
+
+            builder.Property(p => p.LastName)
                 .HasMaxLength(128)
                 .IsRequired();
 
             builder.Property(p => p.Email)
                 .HasMaxLength(512)
                 .IsRequired();
+
+            builder.HasIndex(i => i.Email).IsUnique();
 
             builder.Property(p => p.PasswordHash)
                 .HasMaxLength(64)
