@@ -9,7 +9,6 @@ namespace LabelPlace.Domain.Entities
 
         public string SourceText { get; set; }
 
-        [Column(TypeName = "json")]
         public string LabeledText { get; set; }
 
         public Project Project { get; set; }

@@ -26,7 +26,7 @@ namespace LabelPlace.Dal.Configurations
 
             builder.Property(p => p.Status).IsRequired();
 
-            builder.HasIndex(i => i.Status).IsUnique();
+            builder.HasIndex(i => i.Status);
 
             builder.Property(p => p.Type).IsRequired();
         }
