@@ -6,7 +6,13 @@ namespace LabelPlace.Dal.UnitOfWork
 {
     public class UnitOfWork : IDisposable
     {
-        private readonly LabelPlaceContext _context = new LabelPlaceContext();
+        private readonly LabelPlaceContext _context;
+
+        public UnitOfWork(LabelPlaceContext context)
+        {
+            _context = context;
+        }
+
         //private readonly GenericRepository<BaseEntity> _baseEntityRepository; 
         private GenericRepository<Company> _companyRepository;
         private GenericRepository<Project> _projectRepository;

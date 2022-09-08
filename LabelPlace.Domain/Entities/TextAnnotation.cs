@@ -7,6 +7,8 @@ namespace LabelPlace.Domain.Entities
     {
         public Guid Id { get; set; }
 
+        public int ProjectId { get; set; }
+
         public string SourceText { get; set; }
 
         public string LabeledText { get; set; }
