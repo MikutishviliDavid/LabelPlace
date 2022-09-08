@@ -10,10 +10,6 @@ namespace LabelPlace.Dal.Configurations
         {
             builder.HasKey(k => k.Id);
 
-            builder.HasMany(u => u.Projects)
-                .WithOne(p => p.User)
-                .IsRequired();
-
             builder.Property(p => p.FirstName)
                 .HasMaxLength(128)
                 .IsRequired();

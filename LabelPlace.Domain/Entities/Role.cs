@@ -7,7 +7,7 @@ namespace LabelPlace.Domain.Entities
     {
         public string Description { get; set; }
 
-        public RoleType Type { get; set; }
+        public RoleType? Type { get; set; }
 
         public HashSet<User> Users { get; set; } = new HashSet<User>();
     }
