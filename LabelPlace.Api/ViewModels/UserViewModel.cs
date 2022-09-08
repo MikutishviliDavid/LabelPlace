@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace LabelPlace.BusinessLogic.Dto
+namespace LabelPlace.Api.ViewModels
 {
-    public class UserDto : BaseEntityDto
+    public class UserViewModel : BaseViewModel
     {
         public string FirstName { get; set; }
 
@@ -14,8 +14,8 @@ namespace LabelPlace.BusinessLogic.Dto
 
         public string PasswordSalt { get; set; }
 
-        public HashSet<ProjectDto> Projects { get; set; } = new HashSet<ProjectDto>();
+        public HashSet<ProjectViewModel> Projects { get; set; } = new HashSet<ProjectViewModel>();
 
-        public HashSet<RoleDto> Roles { get; set; } = new HashSet<RoleDto>();
+        public HashSet<RoleViewModel> Roles { get; set; } = new HashSet<RoleViewModel>();
     }
 }

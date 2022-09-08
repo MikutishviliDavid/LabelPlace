@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LabelPlace.Domain.Entities
+namespace LabelPlace.Api.ViewModels
 {
-    public class TextAnnotation
+    public class TextAnnotationViewModel
     {
         public Guid Id { get; set; }
 
@@ -13,6 +12,6 @@ namespace LabelPlace.Domain.Entities
 
         public string LabeledText { get; set; }
 
-        public Project Project { get; set; }
+        public ProjectViewModel Project { get; set; }
     }
 }

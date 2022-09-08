@@ -10,6 +10,11 @@ namespace LabelPlace.Dal.Configurations
         {
             builder.HasKey(k => k.Id);
 
+            builder.HasOne(t => t.Project)
+                .WithMany(p => p.TextAnnotations)
+                .HasForeignKey(t => t.ProjectId)
+                .IsRequired();
+
             builder.Property(p => p.SourceText).IsRequired();
 
             builder.Property(p => p.LabeledText)

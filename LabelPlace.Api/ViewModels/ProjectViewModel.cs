@@ -1,9 +1,9 @@
-﻿using LabelPlace.Domain.Enums;
+﻿using LabelPlace.Api.ViewModels.Enums;
 using System.Collections.Generic;
 
-namespace LabelPlace.Domain.Entities
+namespace LabelPlace.Api.ViewModels
 {
-    public class Project : BaseEntity
+    public class ProjectViewModel : BaseViewModel
     {
         public int UserId { get; set; }
 
@@ -19,10 +19,10 @@ namespace LabelPlace.Domain.Entities
 
         public ProjectType? Type { get; set; }
 
-        public User User { get; set; }
+        public UserViewModel User { get; set; }
 
-        public Company Company { get; set; }
+        public CompanyViewModel Company { get; set; }
 
-        public HashSet<TextAnnotation> TextAnnotations { get; set; } = new HashSet<TextAnnotation>();
+        public HashSet<TextAnnotationViewModel> TextAnnotations { get; set; } = new HashSet<TextAnnotationViewModel>();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace LabelPlace.BusinessLogic.Enums
+﻿namespace LabelPlace.Api.ViewModels.Enums
 {
     public enum ProjectType
     {
