@@ -1,52 +1,38 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using LabelPlace.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace LabelPlace.Dal.GenericRepository
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity>
-        where TEntity : class
+    public class GenericRepository<TEntity> : IBaseRepository<TEntity>
+        where TEntity : BaseEntity
     {
         private readonly LabelPlaceContext _context;
-        private readonly DbSet<TEntity> _entities;
 
         public GenericRepository(LabelPlaceContext context)
         {
             _context = context;
-            _entities = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAll()
         {
-            return _context.Set<TEntity>().ToList();
+            return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual async Task Insert(TEntity entity)
         {
-            _entities.Add(entity);
+            await _context.Set<TEntity>().AddAsync(entity);
         }
 
-        public virtual void Delete(object id)
+        public virtual void Delete(TEntity entity)
         {
-            TEntity entityToDelete = _entities.Find(id);
-            Delete(entityToDelete);
+            _context.Set<TEntity>().Remove(entity);
         }
 
-        public virtual void Delete(TEntity entityToDelete)
+        public virtual void Update(TEntity entity)
         {
-            if (_context.Entry(entityToDelete).State == EntityState.Detached)
-            {
-                _entities.Attach(entityToDelete);
-            }
-
-            _entities.Remove(entityToDelete);
-        }
-
-        public void Update(TEntity entityToUpdate)
-        {
-            _entities.Attach(entityToUpdate);
-            _context.Entry(entityToUpdate).State = EntityState.Modified;
+            _context.Set<TEntity>().Update(entity);
         }
     }
 }
