@@ -1,6 +1,7 @@
 ﻿using LabelPlace.Dal.Configurations;
 using LabelPlace.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace LabelPlace.Dal
 {
@@ -25,7 +26,7 @@ namespace LabelPlace.Dal
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CompanyConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

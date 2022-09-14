@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LabelPlace.Domain.Entities
 {
-    public class TextAnnotation
+    public class TextAnnotation : GuidId
     {
-        public Guid Id { get; set; }
-
         public int ProjectId { get; set; }
 
         public string SourceText { get; set; }

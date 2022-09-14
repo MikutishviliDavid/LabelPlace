@@ -2,7 +2,7 @@
 
 namespace LabelPlace.BusinessLogic.Dto
 {
-    public class UserDto : BaseEntityDto
+    public class UserDto : IntIdDto
     {
         public string FirstName { get; set; }
 

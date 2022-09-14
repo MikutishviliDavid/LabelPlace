@@ -12,7 +12,7 @@ namespace LabelPlace.Dal.Configurations
 
             builder.HasOne(p => p.Company)
                 .WithMany(c => c.Projects)
-                .HasForeignKey(p => p.ComanyId)
+                .HasForeignKey(p => p.CompanyId)
                 .IsRequired();
 
             builder.HasOne(p => p.User)
