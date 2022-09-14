@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LabelPlace.BusinessLogic.Dto
 {
-    public class ProjectDto : BaseIntIdDto
+    public class ProjectDto
     {
         public int UserId { get; set; }
 
