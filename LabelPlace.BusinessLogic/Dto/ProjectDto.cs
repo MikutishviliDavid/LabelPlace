@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LabelPlace.BusinessLogic.Dto
 {
-    public class ProjectDto : BaseEntityDto
+    public class ProjectDto : IntIdDto
     {
         public int UserId { get; set; }
 
@@ -15,9 +15,9 @@ namespace LabelPlace.BusinessLogic.Dto
 
         public string SourceDataUrl { get; set; }
 
-        public ProjectStatus? Status { get; set; }
+        public ProjectStatus Status { get; set; }
 
-        public ProjectType? Type { get; set; }
+        public ProjectType Type { get; set; }
 
         public UserDto User { get; set; }
 
