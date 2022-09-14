@@ -1,6 +1,6 @@
 ﻿namespace LabelPlace.Domain.Entities
 {
-    public class IntId : BaseEntity
+    public class BaseIntId : BaseEntity
     {
         public int Id { get; set; }
     }

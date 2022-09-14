@@ -2,7 +2,7 @@
 
 namespace LabelPlace.Domain.Entities
 {
-    public class GuidId : BaseEntity
+    public class BaseGuidId : BaseEntity
     {
         public Guid Id { get; set; }
     }
