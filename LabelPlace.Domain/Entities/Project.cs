@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LabelPlace.Domain.Entities
 {
-    public class Project : BaseEntity
+    public class Project : IntId
     {
         public int UserId { get; set; }
 
@@ -15,9 +15,9 @@ namespace LabelPlace.Domain.Entities
 
         public string SourceDataUrl { get; set; }
 
-        public ProjectStatus? Status { get; set; }
+        public ProjectStatus Status { get; set; }
 
-        public ProjectType? Type { get; set; }
+        public ProjectType Type { get; set; }
 
         public User User { get; set; }
 

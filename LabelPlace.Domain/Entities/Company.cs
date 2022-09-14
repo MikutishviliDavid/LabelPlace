@@ -2,7 +2,7 @@
 
 namespace LabelPlace.Domain.Entities
 {
-    public class Company : BaseEntity
+    public class Company : IntId
     {
         public string Name { get; set; }
 
