@@ -1,6 +1,6 @@
 ﻿namespace LabelPlace.BusinessLogic.Dto
 {
-    public class IntIdDto : BaseEntityDto
+    public class BaseIntIdDto : BaseEntityDto
     {
         public int Id { get; set; }
     }
