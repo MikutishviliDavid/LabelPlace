@@ -2,7 +2,7 @@
 
 namespace LabelPlace.BusinessLogic.Dto
 {
-    public class TextAnnotationDto : BaseGuidIdDto
+    public class TextAnnotationDto
     {
         public int ProjectId { get; set; }
 
