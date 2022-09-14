@@ -6,8 +6,8 @@ namespace LabelPlace.Dal.GenericRepository
 {
     public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        Task<IEnumerable<TEntity>> GetAll();
-        Task Insert(TEntity entity);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task InsertAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
     }

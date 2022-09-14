@@ -1,10 +1,11 @@
 ﻿using LabelPlace.Dal.GenericRepository;
 using LabelPlace.Domain.Entities;
 using System;
+using System.Threading.Tasks;
 
 namespace LabelPlace.Dal.UnitOfWork
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly LabelPlaceContext _context;
 
@@ -13,9 +14,9 @@ namespace LabelPlace.Dal.UnitOfWork
             _context = context;
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         private bool _disposed = false;

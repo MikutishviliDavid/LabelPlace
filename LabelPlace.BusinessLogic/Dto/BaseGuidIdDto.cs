@@ -2,7 +2,7 @@
 
 namespace LabelPlace.BusinessLogic.Dto
 {
-    public class GuidIdDto : BaseEntityDto
+    public class BaseGuidIdDto : BaseEntityDto
     {
         public Guid Id { get; set; }
     }

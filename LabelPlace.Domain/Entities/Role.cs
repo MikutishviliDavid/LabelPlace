@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LabelPlace.Domain.Entities
 {
-    public class Role : IntId
+    public class Role : BaseIntId
     {
         public string Description { get; set; }
 

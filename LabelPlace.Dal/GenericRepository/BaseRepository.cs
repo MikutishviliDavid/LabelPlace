@@ -5,22 +5,22 @@ using System.Threading.Tasks;
 
 namespace LabelPlace.Dal.GenericRepository
 {
-    public class GenericRepository<TEntity> : IBaseRepository<TEntity>
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         where TEntity : BaseEntity
     {
         private readonly LabelPlaceContext _context;
 
-        public GenericRepository(LabelPlaceContext context)
+        public BaseRepository(LabelPlaceContext context)
         {
             _context = context;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public virtual async Task Insert(TEntity entity)
+        public virtual async Task InsertAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
         }
