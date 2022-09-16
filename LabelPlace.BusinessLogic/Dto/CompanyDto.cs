@@ -9,7 +9,5 @@ namespace LabelPlace.BusinessLogic.Dto
         public string Country { get; set; }
 
         public string City { get; set; }
-
-        public HashSet<ProjectDto> Projects { get; set; } = new HashSet<ProjectDto>();
     }
 }
