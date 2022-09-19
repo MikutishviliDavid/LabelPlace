@@ -7,24 +7,34 @@ namespace LabelPlace.BusinessLogic.Services
 {
     public class CompanyService : ICompanyService
     {
-        public Task<IEnumerable<CompanyDto>> GetAllAsync()
+        public async Task<IEnumerable<CompanyDto>> GetAllAsync()
         {
             throw new System.NotImplementedException();
         }
 
-        public Task InsertAsync(CompanyDto company)
+        public CompanyDto Get(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Update(CompanyDto company)
+        public async Task InsertAsync(CompanyDto company)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Delete(CompanyDto company)
+        public bool Update(CompanyDto company)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Delete(CompanyDto company)
         {
             throw new System.NotImplementedException();
         }  
+
+        public CompanyDto Find(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
