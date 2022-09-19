@@ -2,7 +2,7 @@
 
 namespace LabelPlace.Api.ViewModels
 {
-    public class UserViewModel : BaseViewModel
+    public class UserViewModel
     {
         public string FirstName { get; set; }
 

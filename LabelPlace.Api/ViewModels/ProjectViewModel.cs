@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LabelPlace.Api.ViewModels
 {
-    public class ProjectViewModel : BaseViewModel
+    public class ProjectViewModel
     {
         public int UserId { get; set; }
 
@@ -15,9 +15,9 @@ namespace LabelPlace.Api.ViewModels
 
         public string SourceDataUrl { get; set; }
 
-        public ProjectStatus? Status { get; set; }
+        public ProjectStatus Status { get; set; }
 
-        public ProjectType? Type { get; set; }
+        public ProjectType Type { get; set; }
 
         public UserViewModel User { get; set; }
 

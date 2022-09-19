@@ -2,14 +2,14 @@
 
 namespace LabelPlace.Api.ViewModels
 {
-    public class CompanyViewModel : BaseViewModel
+    public class CompanyViewModel
     {
+        public int? Id { get; set; }
+
         public string Name { get; set; }
 
         public string Country { get; set; }
 
         public string City { get; set; }
-
-        public HashSet<ProjectViewModel> Projects { get; set; } = new HashSet<ProjectViewModel>();
     }
 }

@@ -4,8 +4,6 @@ namespace LabelPlace.Api.ViewModels
 {
     public class TextAnnotationViewModel
     {
-        public Guid Id { get; set; }
-
         public int ProjectId { get; set; }
 
         public string SourceText { get; set; }

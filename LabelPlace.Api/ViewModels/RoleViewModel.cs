@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace LabelPlace.Api.ViewModels
 {
-    public class RoleViewModel : BaseViewModel
+    public class RoleViewModel
     {
         public string Description { get; set; }
 
-        public RoleType? Type { get; set; }
+        public RoleType Type { get; set; }
 
         public HashSet<UserViewModel> Users { get; set; } = new HashSet<UserViewModel>();
     }

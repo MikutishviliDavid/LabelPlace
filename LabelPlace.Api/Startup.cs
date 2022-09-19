@@ -1,6 +1,9 @@
 using FluentValidation;
 using LabelPlace.Api.Configurations;
+using LabelPlace.Api.Profiles;
 using LabelPlace.Api.Validators;
+using LabelPlace.BusinessLogic.Services;
+using LabelPlace.BusinessLogic.Services.Interfaces;
 using LabelPlace.Dal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,9 +32,12 @@ namespace LabelPlace.Api
             services.AddDbContext<LabelPlaceContext>(options =>
             options.UseNpgsql(connectionString, b => b.MigrationsAssembly("LabelPlace.Api")));
 
+            services.AddAutoMapper(typeof(Startup).Assembly);// typeof(startup) or typeof(startup).Assembly
             services.AddControllers();
             services.AddValidatorsFromAssemblyContaining<ProjectValidator>();
             services.AddSwaggerGen();
+
+            services.AddScoped<ICompanyService, CompanyService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
