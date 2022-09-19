@@ -10,7 +10,7 @@ namespace LabelPlace.BusinessLogic.Services.Interfaces
         CompanyDto Get(int id);
         Task InsertAsync(CompanyDto company);
         bool Update(CompanyDto company);
-        bool Delete(CompanyDto company);
+        bool Delete(int id);
         CompanyDto Find(int id);
     }
 }

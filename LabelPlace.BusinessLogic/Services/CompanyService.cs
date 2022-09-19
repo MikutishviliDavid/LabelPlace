@@ -27,7 +27,7 @@ namespace LabelPlace.BusinessLogic.Services
             throw new System.NotImplementedException();
         }
 
-        public bool Delete(CompanyDto company)
+        public bool Delete(int id)
         {
             throw new System.NotImplementedException();
         }  
