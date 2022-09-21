@@ -7,8 +7,8 @@ namespace LabelPlace.BusinessLogic.Services.Interfaces
     public interface ICompanyService
     {
         Task<IEnumerable<CompanyDto>> GetAllAsync();
-        CompanyDto Get(int id);
-        Task InsertAsync(CompanyDto company);
+        Task<CompanyDto> GetAsync(int id);
+        Task<CompanyDto> InsertAsync(CompanyDto company);
         bool Update(CompanyDto company);
         bool Delete(int id);
         CompanyDto Find(int id);

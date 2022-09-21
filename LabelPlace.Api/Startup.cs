@@ -1,7 +1,9 @@
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using LabelPlace.Api.Configurations;
 using LabelPlace.Api.Profiles;
 using LabelPlace.Api.Validators;
+using LabelPlace.Api.ViewModels;
 using LabelPlace.BusinessLogic.Services;
 using LabelPlace.BusinessLogic.Services.Interfaces;
 using LabelPlace.Dal;
@@ -11,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 namespace LabelPlace.Api
 {
@@ -32,12 +35,14 @@ namespace LabelPlace.Api
             services.AddDbContext<LabelPlaceContext>(options =>
             options.UseNpgsql(connectionString, b => b.MigrationsAssembly("LabelPlace.Api")));
 
-            services.AddAutoMapper(typeof(Startup).Assembly);// typeof(startup) or typeof(startup).Assembly
+            services.AddAutoMapper(typeof(Startup).Assembly);
             services.AddControllers();
-            services.AddValidatorsFromAssemblyContaining<ProjectValidator>();
             services.AddSwaggerGen();
 
             services.AddScoped<ICompanyService, CompanyService>();
+
+            services.AddValidatorsFromAssemblyContaining<CompanyValidator>();
+            services.AddFluentValidationAutoValidation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

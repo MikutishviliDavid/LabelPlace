@@ -16,13 +16,11 @@ namespace LabelPlace.Api.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private readonly IValidator<CompanyViewModel> _validator;
         private readonly IMapper _mapper;
         private readonly ICompanyService _companyService;
 
-        public CompanyController(IValidator<CompanyViewModel> validator, IMapper mapper, ICompanyService companyService)
+        public CompanyController(IMapper mapper, ICompanyService companyService)
         {
-            _validator = validator;
             _mapper = mapper;
             _companyService = companyService;
         }
@@ -32,70 +30,56 @@ namespace LabelPlace.Api.Controllers
         {
             var companies = await _companyService.GetAllAsync();
 
-            return Ok(_mapper.Map<IEnumerable<CompanyViewModel>>(companies));
+            return _mapper.Map<IEnumerable<CompanyViewModel>>(companies).ToList(); // ?
         }
 
-        [HttpGet("{id:int}")]
-        public ActionResult GetCompanyAsync(int id)
+        [HttpGet("{id}", Name = "GetCompany")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<CompanyViewModel>> GetCompanyAsync(int id)
         {
-            var company = _companyService.Get(id);
+            var company = await _companyService.GetAsync(id);
 
-            if (company == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(_mapper.Map<CompanyViewModel>(company));
+            return _mapper.Map<CompanyViewModel>(company); // company ?
         }
 
         [HttpPost]
-        //[ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(typeof(CompanyViewModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateCompanyAsync(CompanyViewModel company)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<CompanyViewModel>> CreateCompanyAsync(CompanyViewModel company)
         {
-            ValidationResult result = await _validator.ValidateAsync(company);
+            var companyDto = _mapper.Map<CompanyDto>(company);
 
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
+            var createdCompany = await _companyService.InsertAsync(companyDto);
 
-            var companyModel = _mapper.Map<CompanyDto>(company);
-            await _companyService.InsertAsync(companyModel);
-
-            return Ok();
+            return CreatedAtAction("GetCompany", 
+                new {createdCompany.Id}, 
+                _mapper.Map<CompanyViewModel>(createdCompany));
         }
 
-        [HttpPut]
-        public async Task<ActionResult> UpdateCompany(int id, CompanyViewModel company)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateCompany(int id, CompanyViewModel company)
         {
-            ValidationResult result = await _validator.ValidateAsync(company);
-
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
-
             company.Id = id;
+
             var forUpdateCompany = _mapper.Map<CompanyDto>(company);
 
-            if (!_companyService.Update(forUpdateCompany))
-            {
-                return NotFound(result.Errors);
-            }
-
-            return Ok();
+            _companyService.Update(forUpdateCompany);
+            
+            return NoContent();
         }
 
-        [HttpDelete]
-        public ActionResult DeleteCompany(int id)
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteCompany(int id)
         {
-            if (!_companyService.Delete(id))
-            {
-                return NotFound();
-            }
+            _companyService.Delete(id);
 
-            return Ok();
+            return NoContent();
         }
     }
 }

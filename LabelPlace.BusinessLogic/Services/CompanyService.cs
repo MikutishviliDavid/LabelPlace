@@ -12,12 +12,12 @@ namespace LabelPlace.BusinessLogic.Services
             throw new System.NotImplementedException();
         }
 
-        public CompanyDto Get(int id)
-        {
+        public async Task<CompanyDto> GetAsync(int id)
+        {  
             throw new System.NotImplementedException();
         }
 
-        public async Task InsertAsync(CompanyDto company)
+        public async Task<CompanyDto> InsertAsync(CompanyDto company)
         {
             throw new System.NotImplementedException();
         }
