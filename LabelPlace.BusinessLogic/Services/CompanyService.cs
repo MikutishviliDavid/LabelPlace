@@ -13,7 +13,7 @@ namespace LabelPlace.BusinessLogic.Services
         }
 
         public async Task<CompanyDto> GetAsync(int id)
-        {  
+        {
             throw new System.NotImplementedException();
         }
 
