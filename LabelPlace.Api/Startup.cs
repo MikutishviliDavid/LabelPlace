@@ -1,5 +1,10 @@
 using LabelPlace.Api.Configurations;
+using LabelPlace.BusinessLogic.Services;
+using LabelPlace.BusinessLogic.Services.Interfaces;
 using LabelPlace.Dal;
+using LabelPlace.Dal.Repositories.Implementations;
+using LabelPlace.Dal.Repositories.Interfaces;
+using LabelPlace.Dal.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +34,9 @@ namespace LabelPlace.Api
 
             services.AddControllers();
             services.AddSwaggerGen();
+
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
