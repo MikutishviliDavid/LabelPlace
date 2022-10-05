@@ -20,9 +20,19 @@ namespace LabelPlace.Dal.GenericRepository
             return await _context.Set<TEntity>().ToListAsync();
         }
 
+        public virtual async Task<TEntity> GetAsync(int id)
+        {
+            return await _context.Set<TEntity>().FindAsync(id);
+        }
+
         public virtual async Task InsertAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
+        }
+
+        public virtual void Update(TEntity entity)
+        {
+            _context.Set<TEntity>().Update(entity);
         }
 
         public virtual void Delete(TEntity entity)
@@ -30,9 +40,11 @@ namespace LabelPlace.Dal.GenericRepository
             _context.Set<TEntity>().Remove(entity);
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual TEntity Find(int id)
         {
-            _context.Set<TEntity>().Update(entity);
+            var result = _context.Set<TEntity>().Find(id);
+
+            return result;
         }
     }
 }

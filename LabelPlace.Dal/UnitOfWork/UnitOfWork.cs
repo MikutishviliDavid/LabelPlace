@@ -1,4 +1,5 @@
 ﻿using LabelPlace.Dal.GenericRepository;
+using LabelPlace.Dal.Repositories.Interfaces;
 using LabelPlace.Domain.Entities;
 using System;
 using System.Threading.Tasks;
@@ -9,9 +10,12 @@ namespace LabelPlace.Dal.UnitOfWork
     {
         private readonly LabelPlaceContext _context;
 
-        public UnitOfWork(LabelPlaceContext context)
+        public ICompanyRepository Company { get; }
+
+        public UnitOfWork(LabelPlaceContext context, ICompanyRepository companyRepository)
         {
             _context = context;
+            Company = companyRepository;
         }
 
         public async Task SaveAsync()
@@ -19,19 +23,19 @@ namespace LabelPlace.Dal.UnitOfWork
             await _context.SaveChangesAsync();
         }
 
-        private bool _disposed = false;
+        //private bool _disposed = false;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
-            {
+            //if (!_disposed)
+            //{
                 if (disposing)
                 {
                     _context.Dispose();
                 }
-            }
+            //}
 
-            _disposed = true;
+            //_disposed = true;
         }
 
         public void Dispose()

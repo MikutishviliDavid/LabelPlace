@@ -6,7 +6,11 @@ using LabelPlace.Api.Validators;
 using LabelPlace.Api.ViewModels;
 using LabelPlace.BusinessLogic.Services;
 using LabelPlace.BusinessLogic.Services.Interfaces;
+using LabelPlace.BusinessLogic.Profiles;
 using LabelPlace.Dal;
+using LabelPlace.Dal.Repositories.Implementations;
+using LabelPlace.Dal.Repositories.Interfaces;
+using LabelPlace.Dal.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +39,7 @@ namespace LabelPlace.Api
             services.AddDbContext<LabelPlaceContext>(options =>
             options.UseNpgsql(connectionString, b => b.MigrationsAssembly("LabelPlace.Api")));
 
-            services.AddAutoMapper(typeof(Startup).Assembly);
+            services.AddAutoMapper(typeof(Profiles.MappingProfile).Assembly, typeof(BusinessLogic.Profiles.MappingProfile).Assembly);
             services.AddControllers();
             services.AddSwaggerGen();
 
@@ -43,6 +47,9 @@ namespace LabelPlace.Api
 
             services.AddValidatorsFromAssemblyContaining<CompanyValidator>();
             services.AddFluentValidationAutoValidation();
+
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -30,7 +30,7 @@ namespace LabelPlace.Api.Controllers
         {
             var companies = await _companyService.GetAllAsync();
 
-            return _mapper.Map<IEnumerable<CompanyViewModel>>(companies).ToList(); // ?
+            return _mapper.Map<List<CompanyViewModel>>(companies); 
         }
 
         [HttpGet("{id}", Name = "GetCompany")]
@@ -40,7 +40,12 @@ namespace LabelPlace.Api.Controllers
         {
             var company = await _companyService.GetAsync(id);
 
-            return _mapper.Map<CompanyViewModel>(company); // company ?
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            return _mapper.Map<CompanyViewModel>(company);
         }
 
         [HttpPost]
@@ -75,10 +80,10 @@ namespace LabelPlace.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteCompany(int id)
+        public async Task<IActionResult> DeleteCompany(int id)
         {
-            _companyService.Delete(id);
-
+            await _companyService.DeleteAsync(id);
+            
             return NoContent();
         }
     }

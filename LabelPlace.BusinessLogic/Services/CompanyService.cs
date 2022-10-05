@@ -1,5 +1,10 @@
-﻿using LabelPlace.BusinessLogic.Dto;
+﻿using AutoMapper;
+using LabelPlace.BusinessLogic.Dto;
 using LabelPlace.BusinessLogic.Services.Interfaces;
+using LabelPlace.Dal.UnitOfWork;
+using LabelPlace.Domain.Entities;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,34 +12,59 @@ namespace LabelPlace.BusinessLogic.Services
 {
     public class CompanyService : ICompanyService
     {
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CompanyService(IMapper mapper, IUnitOfWork unitOfWork)
+        {
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+        }
+
         public async Task<IEnumerable<CompanyDto>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            var companies = await _unitOfWork.Company.GetAllAsync();
+
+            return _mapper.Map<IEnumerable<CompanyDto>>(companies);
         }
 
         public async Task<CompanyDto> GetAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var company = await _unitOfWork.Company.GetAsync(id);
+
+            return _mapper.Map<CompanyDto>(company);
         }
 
-        public async Task<CompanyDto> InsertAsync(CompanyDto company)
+        public async Task<CompanyDto> InsertAsync(CompanyDto companyDto)
         {
-            throw new System.NotImplementedException();
+            var company = _mapper.Map<Company>(companyDto);
+
+            await _unitOfWork.Company.InsertAsync(company);
+            await _unitOfWork.SaveAsync();
+
+            return companyDto;
         }
 
-        public bool Update(CompanyDto company)
+        public async Task Update(CompanyDto companyDto)
         {
-            throw new System.NotImplementedException();
+            var company = _mapper.Map<Company>(companyDto);
+
+            _unitOfWork.Company.Update(company);
+            await _unitOfWork.SaveAsync();
         }
 
-        public bool Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var company = _unitOfWork.Company.Find(id); // GetById
+
+            if (company == null)
+            {
+                throw new Exception($"Company with Id: {id} not found.");
+                
+            }
+
+            _unitOfWork.Company.Delete(company);
+            await _unitOfWork.SaveAsync();
         }  
-
-        public CompanyDto Find(int id)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
