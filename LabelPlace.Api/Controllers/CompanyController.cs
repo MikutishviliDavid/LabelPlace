@@ -26,6 +26,8 @@ namespace LabelPlace.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<CompanyViewModel>>> GetCompaniesAsync()
         {
             var companies = await _companyService.GetAllAsync();
@@ -38,12 +40,7 @@ namespace LabelPlace.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CompanyViewModel>> GetCompanyAsync(int id)
         {
-            var company = await _companyService.GetAsync(id);
-
-            if (company == null)
-            {
-                return NotFound();
-            }
+            var company = await _companyService.GetByIdAsync(id);
 
             return _mapper.Map<CompanyViewModel>(company);
         }
@@ -66,14 +63,14 @@ namespace LabelPlace.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateCompany(int id, CompanyViewModel company)
+        public async Task<IActionResult> UpdateCompany(int id, CompanyViewModel company)
         {
             company.Id = id;
 
             var forUpdateCompany = _mapper.Map<CompanyDto>(company);
 
-            _companyService.Update(forUpdateCompany);
-            
+            await _companyService.Update(id, forUpdateCompany);
+           
             return NoContent();
         }
 

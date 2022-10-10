@@ -1,6 +1,4 @@
-﻿using LabelPlace.Dal.GenericRepository;
-using LabelPlace.Dal.Repositories.Interfaces;
-using LabelPlace.Domain.Entities;
+﻿using LabelPlace.Dal.Repositories.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -23,19 +21,19 @@ namespace LabelPlace.Dal.UnitOfWork
             await _context.SaveChangesAsync();
         }
 
-        //private bool _disposed = false;
+        private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
         {
-            //if (!_disposed)
-            //{
+            if (!disposed)
+            {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
-            //}
+            }
 
-            //_disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

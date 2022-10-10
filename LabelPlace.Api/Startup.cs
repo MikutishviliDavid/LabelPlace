@@ -1,12 +1,9 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using LabelPlace.Api.Configurations;
-using LabelPlace.Api.Profiles;
 using LabelPlace.Api.Validators;
-using LabelPlace.Api.ViewModels;
 using LabelPlace.BusinessLogic.Services;
 using LabelPlace.BusinessLogic.Services.Interfaces;
-using LabelPlace.BusinessLogic.Profiles;
 using LabelPlace.Dal;
 using LabelPlace.Dal.Repositories.Implementations;
 using LabelPlace.Dal.Repositories.Interfaces;
@@ -17,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
+using LabelPlace.Api.Middleware;
 
 namespace LabelPlace.Api
 {
@@ -48,8 +45,8 @@ namespace LabelPlace.Api
             services.AddValidatorsFromAssemblyContaining<CompanyValidator>();
             services.AddFluentValidationAutoValidation();
 
-            services.AddTransient<ICompanyRepository, CompanyRepository>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -58,6 +55,8 @@ namespace LabelPlace.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<ExceptionHandler>();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
