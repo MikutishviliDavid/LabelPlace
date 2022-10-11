@@ -35,10 +35,20 @@ namespace LabelPlace.Api.Controllers
             return _mapper.Map<List<CompanyViewModel>>(companies); 
         }
 
-        [HttpGet("{id}", Name = "GetCompany")]
+        [HttpGet("Country", Name = "GetCompanyByCountry")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<CompanyViewModel>> GetCompanyAsync(int id)
+        public async Task<ActionResult<IEnumerable<CompanyViewModel>>> GetCompanyByCountryAsync(string country)
+        {
+            var companies = await _companyService.GetByCountryAsync(country);
+
+            return _mapper.Map<List<CompanyViewModel>>(companies);
+        }
+
+        [HttpGet("{id}", Name = "GetCompanyById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<CompanyViewModel>> GetCompanyByIdAsync(int id)
         {
             var company = await _companyService.GetByIdAsync(id);
 
@@ -54,7 +64,7 @@ namespace LabelPlace.Api.Controllers
 
             var createdCompany = await _companyService.InsertAsync(companyDto);
 
-            return CreatedAtAction("GetCompany", 
+            return CreatedAtAction("GetCompanyById", 
                 new {createdCompany.Id}, 
                 _mapper.Map<CompanyViewModel>(createdCompany));
         }

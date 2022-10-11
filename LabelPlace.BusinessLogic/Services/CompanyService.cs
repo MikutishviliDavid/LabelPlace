@@ -32,6 +32,18 @@ namespace LabelPlace.BusinessLogic.Services
             return _mapper.Map<IEnumerable<CompanyDto>>(companies);
         }
 
+        public async Task<IEnumerable<CompanyDto>> GetByCountryAsync(string country)
+        {
+            var companies = await _unitOfWork.Company.GetByCountryAsync(country);
+
+            if (companies.Count == 0)
+            {
+                throw new BusinessLogicNotFoundException($"There are no companies with the country {country}.");
+            }
+
+            return _mapper.Map<IEnumerable<CompanyDto>>(companies);
+        }
+
         public async Task<CompanyDto> GetByIdAsync(int id)
         {
             var company = await _unitOfWork.Company.GetByIdAsync(id);

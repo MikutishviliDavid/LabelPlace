@@ -2,6 +2,8 @@
 using LabelPlace.Dal.Repositories.Interfaces;
 using LabelPlace.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LabelPlace.Dal.Repositories.Implementations
@@ -20,10 +22,10 @@ namespace LabelPlace.Dal.Repositories.Implementations
             return await _context.Companies.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        //public IEnumerable<Company> GetByCountry(string country)
-        //{
-        //    return _context.Companies.Where(c => c.Country == country);
-        //} add to ICompanyRepository
+        public async Task<List<Company>> GetByCountryAsync(string country)
+        {
+           return await _context.Companies.Where(c => c.Country == country).ToListAsync();
+        }
 
         /*public void Delete(Company entity)
         {
