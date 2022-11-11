@@ -1,4 +1,5 @@
-﻿using LabelPlace.BusinessLogic.Enums;
+﻿using LabelPlace.BusinessLogic.Dto.UserDtos;
+using LabelPlace.BusinessLogic.Enums;
 using System.Collections.Generic;
 
 namespace LabelPlace.BusinessLogic.Dto

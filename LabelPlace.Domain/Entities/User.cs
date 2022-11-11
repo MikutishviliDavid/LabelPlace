@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LabelPlace.Domain.Enums;
+using System.Collections.Generic;
 
 namespace LabelPlace.Domain.Entities
 {
@@ -10,9 +11,9 @@ namespace LabelPlace.Domain.Entities
 
         public string Email { get; set; }
 
-        public string PasswordHash { get; set; }
+        public byte[] PasswordHash { get; set; }
 
-        public string PasswordSalt { get; set; }
+        public byte[] PasswordSalt { get; set; }
 
         public HashSet<Project> Projects { get; set; } = new HashSet<Project>();
 

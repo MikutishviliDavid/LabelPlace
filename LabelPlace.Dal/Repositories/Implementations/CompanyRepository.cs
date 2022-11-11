@@ -22,7 +22,7 @@ namespace LabelPlace.Dal.Repositories.Implementations
             return await _context.Companies.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<List<Company>> GetByCountryAsync(string country)
+        public async Task<List<Company>> GetAllByCountryAsync(string country)
         {
            return await _context.Companies.Where(c => c.Country == country).ToListAsync();
         }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LabelPlace.Api.ViewModels
+namespace LabelPlace.Api.ViewModels.UserViewModels
 {
     public class UserViewModel
     {
@@ -8,14 +8,16 @@ namespace LabelPlace.Api.ViewModels
 
         public string LastName { get; set; }
 
+        //public string Username { get; set; }
+
         public string Email { get; set; }
 
-        public string PasswordHash { get; set; }
+        public byte[] PasswordHash { get; set; }
 
-        public string PasswordSalt { get; set; }
+        public byte[] PasswordSalt { get; set; }
 
         public HashSet<ProjectViewModel> Projects { get; set; } = new HashSet<ProjectViewModel>();
 
-        public HashSet<RoleViewModel> Roles { get; set; } = new HashSet<RoleViewModel>();
+        public HashSet<RegisterViewModel> Roles { get; set; } = new HashSet<RegisterViewModel>();
     }
 }

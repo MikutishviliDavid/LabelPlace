@@ -1,4 +1,6 @@
-﻿using LabelPlace.BusinessLogic.Enums;
+﻿using LabelPlace.BusinessLogic.Dto.CompanyDtos;
+using LabelPlace.BusinessLogic.Dto.UserDtos;
+using LabelPlace.BusinessLogic.Enums;
 using System.Collections.Generic;
 
 namespace LabelPlace.BusinessLogic.Dto
@@ -21,7 +23,7 @@ namespace LabelPlace.BusinessLogic.Dto
 
         public UserDto User { get; set; }
 
-        public CompanyDto Company { get; set; }
+        public CreateCompanyDtoRequest Company { get; set; }
 
         public HashSet<TextAnnotationDto> TextAnnotations { get; set; } = new HashSet<TextAnnotationDto>();
     }

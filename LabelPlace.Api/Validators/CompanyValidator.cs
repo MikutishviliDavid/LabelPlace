@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using LabelPlace.Api.ViewModels;
+using LabelPlace.Api.ViewModels.CompanyViewModels;
 
 namespace LabelPlace.Api.Validators
 {
-    public class CompanyValidator : AbstractValidator<CompanyViewModel>
+    public class CompanyValidator : AbstractValidator<CreateCompanyRequest>
     {
         public CompanyValidator()
         {

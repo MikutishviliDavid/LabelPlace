@@ -6,7 +6,9 @@ namespace LabelPlace.Dal.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        ICompanyRepository Company { get; }
+        ICompanyRepository Companies { get; }
+        IUserRepository Users { get; }
+        IRoleRepository Roles { get; }
         Task SaveAsync();
     }
 }

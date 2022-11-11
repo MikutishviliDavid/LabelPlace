@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace LabelPlace.Api.ViewModels
+﻿namespace LabelPlace.BusinessLogic.Dto.CompanyDtos
 {
-    public class CompanyViewModel
+    public class UpdateCompanyDto
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

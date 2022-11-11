@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace LabelPlace.Dal.Repositories.Interfaces
 {
-    public interface ICompanyRepository : IBaseRepository<Company>
+    public interface IUserRepository : IBaseRepository<User>
     {
-        Task<List<Company>> GetAllByCountryAsync(string country);
+        Task<User> GetByEmailAsync(string email);
     }
 }

@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace LabelPlace.BusinessLogic.Dto
+namespace LabelPlace.BusinessLogic.Dto.UserDtos
 {
-    public class UserDto
+    public class RegisterDto
     {
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
-        public string Email { get; set; }
+        public string Email { get; set; } 
 
-        public string PasswordHash { get; set; }
-
-        public string PasswordSalt { get; set; }
+        public string Password { get; set; }
 
         public HashSet<ProjectDto> Projects { get; set; } = new HashSet<ProjectDto>();
 

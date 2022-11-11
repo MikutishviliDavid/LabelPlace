@@ -1,4 +1,6 @@
-﻿using LabelPlace.Api.ViewModels.Enums;
+﻿using LabelPlace.Api.ViewModels.CompanyViewModels;
+using LabelPlace.Api.ViewModels.Enums;
+using LabelPlace.Api.ViewModels.UserViewModels;
 using System.Collections.Generic;
 
 namespace LabelPlace.Api.ViewModels
@@ -21,7 +23,7 @@ namespace LabelPlace.Api.ViewModels
 
         public UserViewModel User { get; set; }
 
-        public CompanyViewModel Company { get; set; }
+        public CreateCompanyRequest Company { get; set; }
 
         public HashSet<TextAnnotationViewModel> TextAnnotations { get; set; } = new HashSet<TextAnnotationViewModel>();
     }

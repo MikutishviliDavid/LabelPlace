@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using LabelPlace.BusinessLogic.CustomExceptions;
-using LabelPlace.BusinessLogic.Dto;
+using LabelPlace.BusinessLogic.Dto.CompanyDtos;
 using LabelPlace.BusinessLogic.Services.Interfaces;
 using LabelPlace.Dal.UnitOfWork;
 using LabelPlace.Domain.Entities;
@@ -20,77 +20,69 @@ namespace LabelPlace.BusinessLogic.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<CompanyDto>> GetAllAsync()
+        public async Task<IEnumerable<CreateCompanyDtoResponse>> GetAllAsync()
         {
-            var companies = await _unitOfWork.Company.GetAllAsync();
+            var companies = await _unitOfWork.Companies.GetAllAsync();
 
-            if (companies.Count == 0)
-            {
-                throw new BusinessLogicNotFoundException($"Сompanies have not been added yet");
-            }
-
-            return _mapper.Map<IEnumerable<CompanyDto>>(companies);
+            return _mapper.Map<IEnumerable<CreateCompanyDtoResponse>>(companies);
         }
 
-        public async Task<IEnumerable<CompanyDto>> GetByCountryAsync(string country)
+        public async Task<IEnumerable<CreateCompanyDtoResponse>> GetAllByCountryAsync(string country)
         {
-            var companies = await _unitOfWork.Company.GetByCountryAsync(country);
+            var companies = await _unitOfWork.Companies.GetAllByCountryAsync(country);
 
-            if (companies.Count == 0)
-            {
-                throw new BusinessLogicNotFoundException($"There are no companies with the country {country}.");
-            }
-
-            return _mapper.Map<IEnumerable<CompanyDto>>(companies);
+            return _mapper.Map<IEnumerable<CreateCompanyDtoResponse>>(companies);
         }
 
-        public async Task<CompanyDto> GetByIdAsync(int id)
+        public async Task<CreateCompanyDtoResponse> GetByIdAsync(int id)
         {
-            var company = await _unitOfWork.Company.GetByIdAsync(id);
+            var company = await _unitOfWork.Companies.GetByIdAsync(id);
 
             if (company == null)
             {
                 throw new BusinessLogicNotFoundException($"Company with Id: {id} not found.");
             }
 
-            return _mapper.Map<CompanyDto>(company);
+            return _mapper.Map<CreateCompanyDtoResponse>(company);
         }
 
-        public async Task<CompanyDto> InsertAsync(CompanyDto companyDto)
+        public async Task<CreateCompanyDtoResponse> InsertAsync(CreateCompanyDtoRequest request)
         {
-            var company = _mapper.Map<Company>(companyDto);
+            var company = _mapper.Map<Company>(request);
 
-            await _unitOfWork.Company.InsertAsync(company);
+            await _unitOfWork.Companies.InsertAsync(company);
             await _unitOfWork.SaveAsync();
 
-            return companyDto;
+            var createdCompany = _mapper.Map<CreateCompanyDtoResponse>(company);
+
+            return createdCompany;
         }
 
-        public async Task Update(int id, CompanyDto companyDto)
+        public async Task UpdateAsync(int id, UpdateCompanyDto request)
         {
-            var company = await _unitOfWork.Company.GetByIdAsync(id);
+            var company = await _unitOfWork.Companies.GetByIdAsync(id);
 
             if (company == null)
             {
                 throw new BusinessLogicNotFoundException($"Company with Id: {id} not found.");
             }
             
-            var forUpdateCompany = _mapper.Map<Company>(companyDto);
+            var forUpdateCompany = _mapper.Map<Company>(request);
 
-            _unitOfWork.Company.Update(forUpdateCompany);
+            _unitOfWork.Companies.Update(forUpdateCompany);
             await _unitOfWork.SaveAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var company = await _unitOfWork.Company.GetByIdAsync(id);
+            var company = await _unitOfWork.Companies.GetByIdAsync(id);
 
             if (company == null)
             {
                 throw new BusinessLogicNotFoundException($"Company with Id: {id} not found.");
             }
 
-            _unitOfWork.Company.Delete(company);
+            _unitOfWork.Companies.Delete(company);
             await _unitOfWork.SaveAsync();
         }  
     }

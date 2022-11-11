@@ -1,9 +1,10 @@
 ﻿using LabelPlace.Api.ViewModels.Enums;
+using LabelPlace.Api.ViewModels.UserViewModels;
 using System.Collections.Generic;
 
 namespace LabelPlace.Api.ViewModels
 {
-    public class RoleViewModel
+    public class RegisterViewModel
     {
         public string Description { get; set; }
 

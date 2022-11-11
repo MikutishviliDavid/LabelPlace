@@ -8,12 +8,18 @@ namespace LabelPlace.Dal.UnitOfWork
     {
         private readonly LabelPlaceContext _context;
 
-        public ICompanyRepository Company { get; }
+        public ICompanyRepository Companies { get; }
 
-        public UnitOfWork(LabelPlaceContext context, ICompanyRepository companyRepository)
+        public IUserRepository Users { get; }
+
+        public IRoleRepository Roles { get; }
+
+        public UnitOfWork(LabelPlaceContext context, ICompanyRepository companies, IUserRepository users, IRoleRepository roles)
         {
             _context = context;
-            Company = companyRepository;
+            Companies = companies;
+            Users = users;
+            Roles = roles;    
         }
 
         public async Task SaveAsync()

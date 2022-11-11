@@ -5,22 +5,22 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace LabelPlace.Api.Middleware
+namespace LabelPlace.Api.Middlewares
 {
-    public class ExceptionHandler
+    public class ExceptionHandlerMiddleware
     {
-        private readonly RequestDelegate _request;
+        private readonly RequestDelegate _next;
 
-        public ExceptionHandler(RequestDelegate pipeline)
+        public ExceptionHandlerMiddleware(RequestDelegate next)
         {
-            _request = pipeline;
+            _next = next;
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
             {
-                await _request(httpContext);
+                await _next(httpContext);
             }
             catch (Exception ex)
             {
@@ -37,6 +37,9 @@ namespace LabelPlace.Api.Middleware
                 case BusinessLogicNotFoundException:
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                     //context.Response. - for  Message +-
+                    break;
+                case BusinessLogicForbiddenException:
+                    context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                     break;
                 default:
                     //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

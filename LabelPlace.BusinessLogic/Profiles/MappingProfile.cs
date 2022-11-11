@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using LabelPlace.BusinessLogic.Dto;
+using LabelPlace.BusinessLogic.Dto.CompanyDtos;
+using LabelPlace.BusinessLogic.Dto.UserDtos;
 using LabelPlace.Domain.Entities;
 using System.Collections.Generic;
 
@@ -9,7 +11,11 @@ namespace LabelPlace.BusinessLogic.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<CompanyDto, Company>().ReverseMap();
+            CreateMap<CreateCompanyDtoRequest, Company>().ReverseMap();
+            CreateMap<Company, CreateCompanyDtoResponse>().ReverseMap();
+            CreateMap<Company, UpdateCompanyDto>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
+            CreateMap<RoleDto, Role>().ReverseMap();
         }
     }
 }
