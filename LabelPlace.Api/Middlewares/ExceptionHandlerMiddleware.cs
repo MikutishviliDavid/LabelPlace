@@ -41,6 +41,9 @@ namespace LabelPlace.Api.Middlewares
                 case BusinessLogicForbiddenException:
                     context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                     break;
+                case BusinessLogicBadRequest:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
                 default:
                     //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;

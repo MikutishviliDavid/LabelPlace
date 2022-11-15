@@ -36,6 +36,7 @@ namespace LabelPlace.Api.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoginAsync(LoginViewModel request)
         {
             var userDto = _mapper.Map<LoginDto>(request);

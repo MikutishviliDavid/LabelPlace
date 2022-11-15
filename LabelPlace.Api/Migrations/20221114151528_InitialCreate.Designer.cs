@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LabelPlace.Api.Migrations
 {
     [DbContext(typeof(LabelPlaceContext))]
-    [Migration("20221111125310_InitialCreate")]
+    [Migration("20221114151528_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

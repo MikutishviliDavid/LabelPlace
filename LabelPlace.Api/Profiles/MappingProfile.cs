@@ -16,6 +16,7 @@ namespace LabelPlace.Api.Profiles
             CreateMap<UpdateCompanyRequest, UpdateCompanyDto>().ReverseMap();
             CreateMap<GetCompanyResponse, CreateCompanyDtoResponse>().ReverseMap();
             CreateMap<LoginViewModel, LoginDto>().ReverseMap();
+            CreateMap<RegisterViewModel, RegisterDto>().ReverseMap();
         }
     }
 }
