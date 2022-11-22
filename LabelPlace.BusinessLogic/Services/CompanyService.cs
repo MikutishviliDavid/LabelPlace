@@ -20,21 +20,21 @@ namespace LabelPlace.BusinessLogic.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<CreateCompanyDtoResponse>> GetAllAsync()
+        public async Task<IEnumerable<GetCompanyDtoResponse>> GetAllAsync()
         {
             var companies = await _unitOfWork.Companies.GetAllAsync();
 
-            return _mapper.Map<IEnumerable<CreateCompanyDtoResponse>>(companies);
+            return _mapper.Map<IEnumerable<GetCompanyDtoResponse>>(companies);
         }
 
-        public async Task<IEnumerable<CreateCompanyDtoResponse>> GetAllByCountryAsync(string country)
+        public async Task<IEnumerable<GetCompanyDtoResponse>> GetAllByCountryAsync(string country)
         {
             var companies = await _unitOfWork.Companies.GetAllByCountryAsync(country);
 
-            return _mapper.Map<IEnumerable<CreateCompanyDtoResponse>>(companies);
+            return _mapper.Map<IEnumerable<GetCompanyDtoResponse>>(companies);
         }
 
-        public async Task<CreateCompanyDtoResponse> GetByIdAsync(int id)
+        public async Task<GetCompanyDtoResponse> GetByIdAsync(int id)
         {
             var company = await _unitOfWork.Companies.GetByIdAsync(id);
 
@@ -43,7 +43,7 @@ namespace LabelPlace.BusinessLogic.Services
                 throw new BusinessLogicNotFoundException($"Company with Id: {id} not found.");
             }
 
-            return _mapper.Map<CreateCompanyDtoResponse>(company);
+            return _mapper.Map<GetCompanyDtoResponse>(company);
         }
 
         public async Task<CreateCompanyDtoResponse> InsertAsync(CreateCompanyDtoRequest request)
@@ -67,9 +67,11 @@ namespace LabelPlace.BusinessLogic.Services
                 throw new BusinessLogicNotFoundException($"Company with Id: {id} not found.");
             }
             
-            var forUpdateCompany = _mapper.Map<Company>(request);
+            var updatedCompany = _mapper.Map<Company>(request);
 
-            _unitOfWork.Companies.Update(forUpdateCompany);
+            updatedCompany.Id = id;
+
+            _unitOfWork.Companies.Update(updatedCompany);
             await _unitOfWork.SaveAsync();
         }
 

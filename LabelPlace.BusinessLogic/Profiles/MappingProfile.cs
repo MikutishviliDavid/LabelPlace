@@ -13,6 +13,7 @@ namespace LabelPlace.BusinessLogic.Profiles
         {
             CreateMap<CreateCompanyDtoRequest, Company>().ReverseMap();
             CreateMap<Company, CreateCompanyDtoResponse>().ReverseMap();
+            CreateMap<Company, GetCompanyDtoResponse>();
             CreateMap<Company, UpdateCompanyDto>().ReverseMap();
             CreateMap<UserDto, User>().ReverseMap();
             CreateMap<RoleDto, Role>().ReverseMap();

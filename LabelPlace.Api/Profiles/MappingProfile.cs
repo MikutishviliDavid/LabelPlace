@@ -11,12 +11,13 @@ namespace LabelPlace.Api.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<CreateCompanyRequest, CreateCompanyDtoRequest>().ReverseMap();
-            CreateMap<CreateCompanyResponse, CreateCompanyDtoResponse>().ReverseMap();
-            CreateMap<UpdateCompanyRequest, UpdateCompanyDto>().ReverseMap();
-            CreateMap<GetCompanyResponse, CreateCompanyDtoResponse>().ReverseMap();
-            CreateMap<LoginViewModel, LoginDto>().ReverseMap();
-            CreateMap<RegisterViewModel, RegisterDto>().ReverseMap();
+            CreateMap<CreateCompanyRequest, CreateCompanyDtoRequest>();
+            CreateMap<CreateCompanyDtoResponse, CreateCompanyResponse>();
+            CreateMap<GetCompanyDtoResponse, GetCompanyResponse>();
+            CreateMap<UpdateCompanyRequest, UpdateCompanyDto>();
+            CreateMap<CreateCompanyDtoResponse, GetCompanyResponse>();
+            CreateMap<LoginViewModel, LoginDto>();
+            CreateMap<RegisterViewModel, RegisterDto>();
         }
     }
 }
