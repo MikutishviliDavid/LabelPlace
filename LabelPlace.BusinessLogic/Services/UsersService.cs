@@ -18,13 +18,13 @@ using LabelPlace.BusinessLogic.Dto.UserDtos;
 
 namespace LabelPlace.BusinessLogic.Services
 {
-    public class UserService : IUserService
+    public class UsersService : IUserService
     {
         private IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IConfiguration config, IMapper mapper, IUnitOfWork unitOfWork)
+        public UsersService(IConfiguration config, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _config = config;
             _mapper = mapper;

@@ -89,8 +89,8 @@ namespace LabelPlace.Api
             services.AddControllers();
             services.AddSwaggerGen();
 
-            services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICompanyService, CompaniesService>();
+            services.AddScoped<IUserService, UsersService>();
 
             services.AddValidatorsFromAssemblyContaining<CompanyValidator>();
             services.AddFluentValidationAutoValidation();

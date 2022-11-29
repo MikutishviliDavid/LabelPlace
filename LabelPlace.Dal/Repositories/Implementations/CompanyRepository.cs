@@ -26,25 +26,5 @@ namespace LabelPlace.Dal.Repositories.Implementations
         {
            return await _context.Companies.Where(c => c.Country == country).ToListAsync();
         }
-
-        /*public void Delete(Company entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<Company>> GetAllAsync()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task InsertAsync(Company entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Company entity)
-        {
-            throw new System.NotImplementedException();
-        }*/
     }
 }

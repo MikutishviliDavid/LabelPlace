@@ -16,7 +16,7 @@ namespace LabelPlace.Dal.GenericRepository
             _context = context;
         }
 
-        public virtual async Task<List<TEntity>> GetAllAsync()
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await _context.Set<TEntity>().ToListAsync();
         }

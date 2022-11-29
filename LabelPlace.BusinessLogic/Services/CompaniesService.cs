@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace LabelPlace.BusinessLogic.Services
 {
-    public class CompanyService : ICompanyService
+    public class CompaniesService : ICompanyService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CompanyService(IMapper mapper, IUnitOfWork unitOfWork)
+        public CompaniesService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
@@ -29,6 +29,8 @@ namespace LabelPlace.BusinessLogic.Services
 
         public async Task<IEnumerable<GetCompanyDtoResponse>> GetAllByCountryAsync(string country)
         {
+            /*if (!country.HasValue)
+                return BadRequest();*/
             var companies = await _unitOfWork.Companies.GetAllByCountryAsync(country);
 
             return _mapper.Map<IEnumerable<GetCompanyDtoResponse>>(companies);
@@ -53,9 +55,7 @@ namespace LabelPlace.BusinessLogic.Services
             await _unitOfWork.Companies.InsertAsync(company);
             await _unitOfWork.SaveAsync();
 
-            var createdCompany = _mapper.Map<CreateCompanyDtoResponse>(company);
-
-            return createdCompany;
+            return _mapper.Map<CreateCompanyDtoResponse>(company);
         }
 
         public async Task UpdateAsync(int id, UpdateCompanyDto request)

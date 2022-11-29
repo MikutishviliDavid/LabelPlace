@@ -11,7 +11,9 @@ namespace LabelPlace.Api.Validators
         public UserRegistrationValidator()
         {
             RuleFor(m => m.FirstName).MaximumLength(128).NotEmpty();
+
             RuleFor(m => m.LastName).MaximumLength(128).NotEmpty();
+
             RuleFor(m => m.Email).MaximumLength(512).NotEmpty().EmailAddress();//for email regex ?
         }
     }
