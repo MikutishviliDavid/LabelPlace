@@ -1,5 +1,4 @@
-﻿using LabelPlace.Dal.GenericRepository;
-using LabelPlace.Domain.Entities;
+﻿using LabelPlace.Dal.Repositories.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -9,9 +8,18 @@ namespace LabelPlace.Dal.UnitOfWork
     {
         private readonly LabelPlaceContext _context;
 
-        public UnitOfWork(LabelPlaceContext context)
+        public ICompanyRepository Companies { get; }
+
+        public IUserRepository Users { get; }
+
+        public IRoleRepository Roles { get; }
+
+        public UnitOfWork(LabelPlaceContext context, ICompanyRepository companies, IUserRepository users, IRoleRepository roles)
         {
             _context = context;
+            Companies = companies;
+            Users = users;
+            Roles = roles;    
         }
 
         public async Task SaveAsync()
@@ -19,11 +27,11 @@ namespace LabelPlace.Dal.UnitOfWork
             await _context.SaveChangesAsync();
         }
 
-        private bool _disposed = false;
+        private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
@@ -31,7 +39,7 @@ namespace LabelPlace.Dal.UnitOfWork
                 }
             }
 
-            _disposed = true;
+            disposed = true;
         }
 
         public void Dispose()
