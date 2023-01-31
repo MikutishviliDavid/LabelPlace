@@ -1,14 +1,12 @@
-﻿using LabelPlace.BusinessLogic.Dto.UserDtos;
+﻿using LabelPlace.BusinessLogic.Dtos.UserDtos;
 using System.Threading.Tasks;
 
 namespace LabelPlace.BusinessLogic.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDto> GetByEmailAsync(string email);
+        Task<UserDtoResponse> RegisterAsync(RegisterDto company, int roleId);
 
-        Task<string> RegisterAsync(RegisterDto company, int roleId);
-
-        Task<string> LoginAsync(LoginDto registerDto);
+        Task<UserDtoResponse> LoginAsync(LoginDto registerDto);
     }
 }

@@ -7,6 +7,8 @@ namespace LabelPlace.Dal.Repositories.Interfaces
 {
     public interface ICompanyRepository : IBaseRepository<Company>
     {
-        Task<List<Company>> GetAllByCountryAsync(string country);
+        Task<IEnumerable<Company>> GetAllByCountryAsync(string country);
+
+        Task<Company> GetByNameAsync(string companyName);
     }
 }

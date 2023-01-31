@@ -1,7 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using LabelPlace.Api.Configurations;
-using LabelPlace.Api.Validators;
 using LabelPlace.BusinessLogic.Services;
 using LabelPlace.BusinessLogic.Services.Interfaces;
 using LabelPlace.Dal;
@@ -19,6 +18,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using System;
+using LabelPlace.Api.Validators.CompanyValidators;
 
 namespace LabelPlace.Api
 {
@@ -34,8 +35,8 @@ namespace LabelPlace.Api
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetSection("LabelPlaceDatabase").Get<LabelPlaceDatabaseConfiguration>();
-            
-            var connectionString = connection.ConnectionString;
+
+            var jwt = Configuration.GetSection("Jwt").Get<LabelPlaceJwtConfiguration>();
 
             services.AddSwaggerGen(opt =>
             {
@@ -71,28 +72,28 @@ namespace LabelPlace.Api
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
+                        ValidIssuer = jwt.Issuer,
                         ValidateAudience = true,
-                        ValidateLifetime = true,
+                        ValidAudience = jwt.Audience,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key)),
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
 
-            //services.AddMvc();
-
             services.AddDbContext<LabelPlaceContext>(options =>
-            options.UseNpgsql(connectionString, b => b.MigrationsAssembly("LabelPlace.Api")));
+            options.UseNpgsql(connection.ConnectionString, b => b.MigrationsAssembly("LabelPlace.Api")));
 
-            services.AddAutoMapper(typeof(Profiles.MappingProfile).Assembly, typeof(BusinessLogic.Profiles.MappingProfile).Assembly);
+            services.AddAutoMapper(typeof(Mappings.ApiMappingProfile).Assembly, 
+                typeof(BusinessLogic.Mappings.BusinessLogicMappingProfile).Assembly);
             services.AddControllers();
             services.AddSwaggerGen();
 
-            services.AddScoped<ICompanyService, CompaniesService>();
-            services.AddScoped<IUserService, UsersService>();
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IUserService, UserService>();
 
-            services.AddValidatorsFromAssemblyContaining<CompanyValidator>();
+            services.AddValidatorsFromAssemblyContaining<CreateCompanyRequestValidator>();
             services.AddFluentValidationAutoValidation();
 
             services.AddScoped<ICompanyRepository, CompanyRepository>();

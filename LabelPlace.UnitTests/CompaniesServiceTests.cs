@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LabelPlace.BusinessLogic.CustomExceptions;
-using LabelPlace.BusinessLogic.Dto.CompanyDtos;
-using LabelPlace.BusinessLogic.Profiles;
+using LabelPlace.BusinessLogic.Dtos.CompanyDtos;
+using LabelPlace.BusinessLogic.Mappings;
 using LabelPlace.BusinessLogic.Services;
 using LabelPlace.Dal.UnitOfWork;
 using LabelPlace.Domain.Entities;
@@ -14,29 +14,32 @@ using System.Threading.Tasks;
 using System;
 using System.Linq;
 using System.Collections;
+using LabelPlace.BusinessLogic.Services.Interfaces;
+using LabelPlace.Api.Controllers;
+using LabelPlace.Api.Models.CompanyModels;
 
 namespace LabelPlace.UnitTests
 {
+    [TestFixture]
     public class CompaniesServiceTests
     {
-        private readonly CompaniesService _service;
-        private readonly Mock<IUnitOfWork> _companyRepoMock = new Mock<IUnitOfWork>();
-        //private readonly Mock<IMapper> _mapperMock = new Mock<IMapper>();
+        private CompanyService _service;
+        private Mock<IUnitOfWork> _unitOfWork;
         private static IMapper _mapper;
 
-        public CompaniesServiceTests()
+        [SetUp]
+        public void Init()
         {
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new MappingProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }// it's too complicated, it can be simpler
+            _unitOfWork = new Mock<IUnitOfWork>();
 
-            _service = new CompaniesService(_mapper, _companyRepoMock.Object);
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new BusinessLogicMappingProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            _mapper = mapper;
+
+            _service = new CompanyService(_mapper, _unitOfWork.Object);
         }
 
         [Test]
@@ -44,8 +47,8 @@ namespace LabelPlace.UnitTests
         {
             var companiesDto = GetTestCompanies();
 
-            _companyRepoMock
-                .Setup(repo => repo.Companies.GetAllAsync())
+            _unitOfWork
+                .Setup(u => u.Companies.GetAllAsync())
                 .ReturnsAsync(companiesDto);
             
             var actualCompanies = await _service.GetAllAsync(); 
@@ -59,13 +62,13 @@ namespace LabelPlace.UnitTests
         {
             var country = "USA";
 
-            var companiesDto = GetTestCompanies();
+            var companiesDto = GetTestCompaniesByCountry();
 
-            _companyRepoMock
-                .Setup(repo => repo.Companies.GetAllByCountryAsync(country))
+            _unitOfWork
+                .Setup(u => u.Companies.GetAllByCountryAsync(country))
                 .ReturnsAsync(companiesDto);
 
-            var actualCompanies = await _service.GetAllByCountryAsync(country);// why count == 3
+            var actualCompanies = await _service.GetAllByCountryAsync(country);
 
             actualCompanies.Count().Should().Be(2);
             actualCompanies.Should().Equal(companiesDto, (c1, c2) => c1.Country == c2.Country);
@@ -85,7 +88,7 @@ namespace LabelPlace.UnitTests
                 Country = "USA"
             };
 
-            _companyRepoMock.Setup(repo => repo.Companies.GetByIdAsync(companyId))
+            _unitOfWork.Setup(repo => repo.Companies.GetByIdAsync(companyId))
                 .ReturnsAsync(companyDto);
 
             var actualCompany = await _service.GetByIdAsync(companyId);
@@ -97,7 +100,7 @@ namespace LabelPlace.UnitTests
         [Test]
         public void GetByIdAsync_ShouldThrowException_WhenCompanyDoesNotExist()
         {
-            _companyRepoMock.Setup(repo => repo.Companies.GetByIdAsync(It.IsAny<int>()))
+            _unitOfWork.Setup(u => u.Companies.GetByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => null);
 
             Func<Task> result = async () => await _service.GetByIdAsync(It.IsAny<int>());
@@ -106,33 +109,72 @@ namespace LabelPlace.UnitTests
         }
 
         [Test]
-        public async Task InsertAsync_ShouldReturnCompany_WhenCompanyWasCreated()
+        public async Task InsertAsync_ShouldMakeSureThatCallWasOnce()
         {
             var request = new CreateCompanyDtoRequest
             {
                 Name = "BMW",
                 Country = "Germany",
-                City = "Berlin",
+                City = "Berlin"
+            };
+
+            _unitOfWork.Setup(u => u.Companies.InsertAsync(It.IsAny<Company>()));
+            _unitOfWork.Setup(u => u.SaveAsync());
+
+            var result = await _service.InsertAsync(request);
+
+            _unitOfWork.Verify(u => u.Companies.InsertAsync(It.IsAny<Company>()), Times.Once());
+            _unitOfWork.Verify(u => u.SaveAsync(), Times.Once());
+            result.Should().NotBeNull();
+        }
+
+       [Test]
+        public async Task UpdateAsync_ShouldMakeSureThatCallWasOnce()
+        {
+            var request = new UpdateCompanyDto
+            {
+                Name = "Mersedes",
+                Country = "Germany",
+                City = "Berlin"
             };
 
             var expectedCompany = new Company
             {
                 Id = 1,
-                Name = "BMW",
+                Name = "Mersedes",
                 Country = "Germany",
-                City = "Berlin",
+                City = "Berlin"
             };
 
-            var expectedCompanyResponse = new CreateCompanyDtoResponse { Id = 1 };
+            _unitOfWork.Setup(u => u.Companies.GetByIdAsync(1))
+                .ReturnsAsync(expectedCompany);
 
-            _companyRepoMock
-                 .Setup(repo => repo.Companies.InsertAsync(expectedCompany))
-                 .Returns(Task.FromResult(expectedCompanyResponse));
+            _unitOfWork.Setup(u => u.Companies.Update(It.IsAny<Company>()));
 
-            var result = await _service.InsertAsync(request);
+            await _service.UpdateAsync(1, request);
 
-            //result.Id.Should().Be(expectedCompany.Id);
-            result.Should().NotBeNull();
+            _unitOfWork.Verify(u => u.Companies.Update(It.IsAny<Company>()), Times.Once());
+        }
+
+        [Test]
+        public async Task DeleteAsync_ShouldMakeSureThatCallWasOnce()
+        {
+            var expectedCompany = new Company
+            {
+                Id = 1,
+                Name = "Mersedes",
+                Country = "Germany",
+                City = "Berlin"
+            };
+
+            _unitOfWork.Setup(u => u.Companies.GetByIdAsync(1))
+                .ReturnsAsync(expectedCompany);
+
+            _unitOfWork.Setup(u => u.Companies.Delete(It.IsAny<Company>()));
+
+            await _service.DeleteAsync(1);
+
+            _unitOfWork.Verify(u => u.Companies.Delete(It.IsAny<Company>()), Times.Once());
         }
 
         private static List<Company> GetTestCompanies()
@@ -141,6 +183,17 @@ namespace LabelPlace.UnitTests
             {
                 new Company { Id = 1, Name = "Apple", City = "Los Angeles", Country = "USA" },
                 new Company { Id = 2, Name = "BelShina", City = "Minsk", Country = "Belarus" },
+                new Company { Id = 3, Name = "Microsoft", City = "New York", Country = "USA" }
+            };
+
+            return companies;
+        }
+
+        private static List<Company> GetTestCompaniesByCountry()
+        {
+            List<Company> companies = new()
+            {
+                new Company { Id = 1, Name = "Apple", City = "Los Angeles", Country = "USA" },
                 new Company { Id = 3, Name = "Microsoft", City = "New York", Country = "USA" }
             };
 

@@ -33,7 +33,8 @@ namespace LabelPlace.Dal.GenericRepository
 
         public virtual void Update(TEntity entity)
         {
-            _context.Set<TEntity>().Update(entity);
+            _context.Set<TEntity>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual void Delete(TEntity entity)

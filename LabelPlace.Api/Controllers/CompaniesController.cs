@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using LabelPlace.Api.ViewModels.CompanyViewModels;
-using LabelPlace.BusinessLogic.Dto.CompanyDtos;
+using LabelPlace.Api.Models.CompanyModels;
+using LabelPlace.BusinessLogic.Dtos.CompanyDtos;
 using LabelPlace.BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +13,7 @@ namespace LabelPlace.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administrator")]
     public class CompaniesController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -25,7 +26,6 @@ namespace LabelPlace.Api.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -38,22 +38,20 @@ namespace LabelPlace.Api.Controllers
             return Ok(companies);
         }
 
-        [HttpGet("by-country")]
-        //[Authorize(Roles = "Administrator")]
+        [HttpPost("by-country")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<IActionResult> GetAllByCountryAsync(string country)
+        public async Task<IActionResult> GetAllByCountryAsync(GetAllByCountryRequest country)
         {
-            var companiesDto = await _companyService.GetAllByCountryAsync(country);
+            var companiesDto = await _companyService.GetAllByCountryAsync(country.Country);
 
             var companies = _mapper.Map<List<GetCompanyResponse>>(companiesDto);
 
             return Ok(companies);
         }
 
-        [HttpGet("{id}", Name = "GetById")]
-        //[Authorize(Roles = "Administrator")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -68,11 +66,11 @@ namespace LabelPlace.Api.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateAsync(CreateCompanyRequest request)
         {
             var companyDto = _mapper.Map<CreateCompanyDtoRequest>(request);
@@ -85,7 +83,6 @@ namespace LabelPlace.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -93,15 +90,14 @@ namespace LabelPlace.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateAsync(int id, UpdateCompanyRequest request)
         {
-            var CompanyDto = _mapper.Map<UpdateCompanyDto>(request);
+            var companyDto = _mapper.Map<UpdateCompanyDto>(request);
 
-            await _companyService.UpdateAsync(id, CompanyDto);
+            await _companyService.UpdateAsync(id, companyDto);
            
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

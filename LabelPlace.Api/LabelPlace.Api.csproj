@@ -22,4 +22,8 @@
     <ProjectReference Include="..\LabelPlace.Dal\LabelPlace.Dal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Validators\UserValidators\" />
+  </ItemGroup>
+
 </Project>

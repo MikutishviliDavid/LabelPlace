@@ -1,4 +1,4 @@
-﻿using LabelPlace.BusinessLogic.Dto.CompanyDtos;
+﻿using LabelPlace.BusinessLogic.Dtos.CompanyDtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
