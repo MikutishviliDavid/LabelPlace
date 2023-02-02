@@ -58,7 +58,7 @@ namespace LabelPlace.BusinessLogic.Services
             return _mapper.Map<CreateCompanyDtoResponse>(company);
         }
 
-        public async Task UpdateAsync(int id, UpdateCompanyDto request)
+        public async Task UpdateAsync(int id, UpdateCompanyDtoRequest request)
         {
             var company = await GetCompanyByIdAsync(id);
 

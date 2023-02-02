@@ -25,19 +25,14 @@ namespace LabelPlace.UnitTests
     {
         private CompanyService _service;
         private Mock<IUnitOfWork> _unitOfWork;
-        private static IMapper _mapper;
+        private static readonly IMapper _mapper =
+            new MapperConfiguration(c => c.AddProfile<BusinessLogicMappingProfile>())
+            .CreateMapper();
 
         [SetUp]
         public void Init()
         {
             _unitOfWork = new Mock<IUnitOfWork>();
-
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new BusinessLogicMappingProfile());
-            });
-            IMapper mapper = mappingConfig.CreateMapper();
-            _mapper = mapper;
 
             _service = new CompanyService(_mapper, _unitOfWork.Object);
         }
@@ -45,16 +40,16 @@ namespace LabelPlace.UnitTests
         [Test]
         public async Task GetAllAsync_ShouldReturnCompanies()
         {
-            var companiesDto = GetTestCompanies();
+            var companies = GetTestCompanies();
 
             _unitOfWork
                 .Setup(u => u.Companies.GetAllAsync())
-                .ReturnsAsync(companiesDto);
+                .ReturnsAsync(companies);
             
             var actualCompanies = await _service.GetAllAsync(); 
 
-            actualCompanies.Count().Should().Be(companiesDto.Count);
-            actualCompanies.Should().Equal(companiesDto, (c1, c2) => c1.Name == c2.Name);
+            actualCompanies.Count().Should().Be(companies.Count);
+            actualCompanies.Should().Equal(companies, (c1, c2) => c1.Name == c2.Name);
         }
 
         [Test]
@@ -62,16 +57,16 @@ namespace LabelPlace.UnitTests
         {
             var country = "USA";
 
-            var companiesDto = GetTestCompaniesByCountry();
+            var companies = GetTestCompaniesByCountry();
 
             _unitOfWork
                 .Setup(u => u.Companies.GetAllByCountryAsync(country))
-                .ReturnsAsync(companiesDto);
+                .ReturnsAsync(companies);
 
             var actualCompanies = await _service.GetAllByCountryAsync(country);
 
             actualCompanies.Count().Should().Be(2);
-            actualCompanies.Should().Equal(companiesDto, (c1, c2) => c1.Country == c2.Country);
+            actualCompanies.Should().Equal(companies, (c1, c2) => c1.Country == c2.Country);
         }
 
         [Test]
@@ -80,7 +75,7 @@ namespace LabelPlace.UnitTests
             var companyId = 1;
             var companyName = "Apple";
 
-            var companyDto = new Company
+            var company = new Company
             {
                 Id = companyId,
                 Name = companyName,
@@ -89,7 +84,7 @@ namespace LabelPlace.UnitTests
             };
 
             _unitOfWork.Setup(repo => repo.Companies.GetByIdAsync(companyId))
-                .ReturnsAsync(companyDto);
+                .ReturnsAsync(company);
 
             var actualCompany = await _service.GetByIdAsync(companyId);
 
@@ -131,7 +126,7 @@ namespace LabelPlace.UnitTests
        [Test]
         public async Task UpdateAsync_ShouldMakeSureThatCallWasOnce()
         {
-            var request = new UpdateCompanyDto
+            var request = new UpdateCompanyDtoRequest
             {
                 Name = "Mersedes",
                 Country = "Germany",

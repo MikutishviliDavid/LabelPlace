@@ -5,8 +5,10 @@ namespace LabelPlace.BusinessLogic.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDtoResponse> RegisterAsync(RegisterDto company, int roleId);
+        Task<RegisterUserDtoResponse> RegisterAsync(RegisterUserDtoRequest company);
 
-        Task<UserDtoResponse> LoginAsync(LoginDto registerDto);
+        Task<LoginUserDtoResponse> LoginAsync(LoginUserDtoRequest registerDto);
+
+        Task<LoginUserDtoResponse> GetByIdAsync(int id);
     }
 }

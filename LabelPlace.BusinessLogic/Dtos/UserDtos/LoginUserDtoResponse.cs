@@ -1,10 +1,12 @@
 ﻿using LabelPlace.Domain.Entities;
 using System.Collections.Generic;
 
-namespace LabelPlace.Api.Models.UserModels
+namespace LabelPlace.BusinessLogic.Dtos.UserDtos
 {
-    public class UserResponse
+    public class LoginUserDtoResponse
     {
+        public int Id { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

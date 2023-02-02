@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using LabelPlace.Api.Models;
+using LabelPlace.Api.Models.ProjectModels;
 
-namespace LabelPlace.Api.Validators
+namespace LabelPlace.Api.Validators.ProjectValidators
 {
     public class CreateProjectRequestValidator : AbstractValidator<CreateProjectRequest>
     {
@@ -15,11 +15,11 @@ namespace LabelPlace.Api.Validators
 
             RuleFor(m => m.Description).MaximumLength(4096).NotEmpty();
 
-            RuleFor(m => m.SourceDataUrl).MaximumLength(2048).NotEmpty(); 
+            RuleFor(m => m.SourceDataUrl).MaximumLength(2048).NotEmpty();
 
             RuleFor(m => m.Status).NotNull().IsInEnum();
 
-            RuleFor(m => m.Type).NotNull().IsInEnum();        
+            RuleFor(m => m.Type).NotNull().IsInEnum();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace LabelPlace.BusinessLogic.Dtos.UserDtos
 {
-    public class LoginDto
+    public class LoginUserDtoRequest
     {
         public string Email { get; set; }
 

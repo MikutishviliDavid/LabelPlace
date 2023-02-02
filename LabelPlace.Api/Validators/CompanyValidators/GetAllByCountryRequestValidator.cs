@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using LabelPlace.Api.Models.CompanyModels;
 
-namespace LabelPlace.Api.Validators
+namespace LabelPlace.Api.Validators.CompanyValidators
 {
     public class GetAllByCountryRequestValidator : AbstractValidator<GetAllByCountryRequest>
     {

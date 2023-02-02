@@ -26,7 +26,19 @@ namespace LabelPlace.BusinessLogic.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UserDtoResponse> RegisterAsync(RegisterDto request, int roleId)
+        public async Task<LoginUserDtoResponse> GetByIdAsync(int id)
+        {
+            var user = await _unitOfWork.Users.GetByIdAsync(id);
+
+            if (user == null)
+            {
+                throw new BusinessLogicNotFoundException($"User with Id: {id} not found.");
+            }
+
+            return _mapper.Map<LoginUserDtoResponse>(user);
+        }
+
+        public async Task<RegisterUserDtoResponse> RegisterAsync(RegisterUserDtoRequest request)
         {
             var userByEmail = await _unitOfWork.Users.GetByEmailAsync(request.Email);
 
@@ -37,7 +49,7 @@ namespace LabelPlace.BusinessLogic.Services
 
             CreatePasswordHash(request.Password, out string passwordHash, out string passwordSalt);
 
-            var userDto = new UserDto()
+            var userDto = new NewUserDto()
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -46,12 +58,7 @@ namespace LabelPlace.BusinessLogic.Services
                 PasswordHash = passwordHash
             };
 
-            var role = await _unitOfWork.Roles.GetByIdAsync(roleId);
-
-            if (role == null)
-            {
-                throw new BusinessLogicNotFoundException($"Role with Id: {roleId} not found.");
-            }
+            var role = await _unitOfWork.Roles.GetByIdAsync(1);
 
             userDto.Roles.Add(role);
 
@@ -60,24 +67,24 @@ namespace LabelPlace.BusinessLogic.Services
             await _unitOfWork.Users.InsertAsync(user);
             await _unitOfWork.SaveAsync();
 
-            return _mapper.Map<UserDtoResponse>(user);
+            return _mapper.Map<RegisterUserDtoResponse>(user);
         }
 
-        public async Task<UserDtoResponse> LoginAsync(LoginDto request)               
+        public async Task<LoginUserDtoResponse> LoginAsync(LoginUserDtoRequest request)               
         {
             var user = await _unitOfWork.Users.GetByEmailAsync(request.Email);
 
-            if (user == null || user.Email != request.Email)
+            if (user == null)
             {
-                throw new BusinessLogicNotFoundException($"User with email: {request.Email} not found or entered an incorrect email address.");
+                throw new BusinessLogicBadRequest("Invalid login or password.");
             }
 
             if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
-                throw new BusinessLogicBadRequest("Wrong password.");
+                throw new BusinessLogicBadRequest("Invalid login or password.");
             }
 
-            return _mapper.Map<UserDtoResponse>(user);
+            return _mapper.Map<LoginUserDtoResponse>(user);
         }
 
         private void CreatePasswordHash(string password, out string passwordHash, out string passwordSalt)

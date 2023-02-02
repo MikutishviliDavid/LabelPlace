@@ -8,6 +8,6 @@
 
         public string Audience { get; set; }
 
-        public string Lifetime { get; set; }
+        public int Lifetime { get; set; }
     }
 }

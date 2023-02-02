@@ -2,7 +2,7 @@
 
 namespace LabelPlace.BusinessLogic.Dtos.UserDtos
 {
-    public class RegisterDto
+    public class RegisterUserDtoRequest
     {
         public string FirstName { get; set; }
 

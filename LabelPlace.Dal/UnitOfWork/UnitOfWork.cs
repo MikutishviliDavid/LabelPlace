@@ -1,4 +1,5 @@
-﻿using LabelPlace.Dal.Repositories.Interfaces;
+﻿using LabelPlace.Dal.Repositories.Implementations;
+using LabelPlace.Dal.Repositories.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -8,18 +9,21 @@ namespace LabelPlace.Dal.UnitOfWork
     {
         private readonly LabelPlaceContext _context;
 
-        public ICompanyRepository Companies { get; }
+        private ICompanyRepository _companyRepository;
 
-        public IUserRepository Users { get; }
+        private IUserRepository _userRepository;
 
-        public IRoleRepository Roles { get; }
+        private IRoleRepository _roleRepository;
 
-        public UnitOfWork(LabelPlaceContext context, ICompanyRepository companies, IUserRepository users, IRoleRepository roles)
+        public ICompanyRepository Companies => _companyRepository ??= new CompanyRepository(_context);
+
+        public IUserRepository Users => _userRepository ??= new UserRepository(_context);
+
+        public IRoleRepository Roles => _roleRepository ??= new RoleRepository(_context);
+
+        public UnitOfWork(LabelPlaceContext context)
         {
-            _context = context;
-            Companies = companies;
-            Users = users;
-            Roles = roles;    
+            _context = context; 
         }
 
         public async Task SaveAsync()

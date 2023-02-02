@@ -87,6 +87,9 @@ namespace LabelPlace.Api
 
             services.AddAutoMapper(typeof(Mappings.ApiMappingProfile).Assembly, 
                 typeof(BusinessLogic.Mappings.BusinessLogicMappingProfile).Assembly);
+
+            services.Configure<LabelPlaceJwtConfiguration>(Configuration.GetSection("Jwt"));
+
             services.AddControllers();
             services.AddSwaggerGen();
 

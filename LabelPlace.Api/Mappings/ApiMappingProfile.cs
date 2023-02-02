@@ -18,15 +18,17 @@ namespace LabelPlace.Api.Mappings
 
             CreateMap<GetCompanyDtoResponse, GetCompanyResponse>();
 
-            CreateMap<UpdateCompanyRequest, UpdateCompanyDto>();
+            CreateMap<UpdateCompanyRequest, UpdateCompanyDtoRequest>();
 
             CreateMap<CreateCompanyDtoResponse, GetCompanyResponse>();
 
-            CreateMap<LoginUserRequest, LoginDto>();
+            CreateMap<LoginUserRequest, LoginUserDtoRequest>();
 
-            CreateMap<RegisterUserRequest, RegisterDto>();
+            CreateMap<RegisterUserRequest, RegisterUserDtoRequest>();
 
-            CreateMap<UserDtoResponse, UserResponse>();
+            CreateMap<LoginUserDtoResponse, GetUserResponse>();
+
+            CreateMap<RegisterUserDtoResponse, RegisterUserResponse>();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using LabelPlace.Api.Models.UserModels;
 
-namespace LabelPlace.Api.Validators
+namespace LabelPlace.Api.Validators.UserValidators
 {
     public class LoginUserRequestValidator : AbstractValidator<LoginUserRequest>
     {

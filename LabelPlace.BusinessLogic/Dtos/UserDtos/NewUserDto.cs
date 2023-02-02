@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace LabelPlace.BusinessLogic.Dtos.UserDtos
 {
-    public class UserDto
+    public class NewUserDto
     {
         public string FirstName { get; set; }
 

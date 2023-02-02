@@ -3,7 +3,7 @@ using LabelPlace.Api.Models.Enums;
 using LabelPlace.Api.Models.UserModels;
 using System.Collections.Generic;
 
-namespace LabelPlace.Api.Validators
+namespace LabelPlace.Api.Validators.UserValidators
 {
     public class RegisterUserRequestValidator : AbstractValidator<RegisterUserRequest>
     {

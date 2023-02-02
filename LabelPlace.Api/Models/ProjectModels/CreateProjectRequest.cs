@@ -3,7 +3,7 @@ using LabelPlace.Api.Models.Enums;
 using LabelPlace.Api.Models.UserModels;
 using System.Collections.Generic;
 
-namespace LabelPlace.Api.Models
+namespace LabelPlace.Api.Models.ProjectModels
 {
     public class CreateProjectRequest
     {

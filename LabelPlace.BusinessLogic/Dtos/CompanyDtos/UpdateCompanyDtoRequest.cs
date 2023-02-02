@@ -1,6 +1,6 @@
 ﻿namespace LabelPlace.BusinessLogic.Dtos.CompanyDtos
 {
-    public class UpdateCompanyDto
+    public class UpdateCompanyDtoRequest
     {
         public string Name { get; set; }
 

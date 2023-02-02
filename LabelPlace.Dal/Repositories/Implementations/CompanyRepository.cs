@@ -24,7 +24,7 @@ namespace LabelPlace.Dal.Repositories.Implementations
 
         public async Task<IEnumerable<Company>> GetAllByCountryAsync(string country)
         {
-           return await _context.Companies.Where(c => c.Country == country).ToListAsync();
+           return await _context.Companies.AsNoTracking().Where(c => c.Country == country).ToListAsync();
         }
 
         public async Task<Company> GetByNameAsync(string companyName)

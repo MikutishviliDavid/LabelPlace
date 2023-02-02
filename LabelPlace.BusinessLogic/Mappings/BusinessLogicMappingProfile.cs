@@ -14,13 +14,17 @@ namespace LabelPlace.BusinessLogic.Mappings
 
             CreateMap<Company, GetCompanyDtoResponse>();
 
-            CreateMap<CreateCompanyDtoResponse, Company>().ReverseMap();
+            CreateMap<CreateCompanyDtoResponse, Company>()
+                .ReverseMap();
 
-            CreateMap<Company, UpdateCompanyDto>().ReverseMap();
+            CreateMap<Company, UpdateCompanyDtoRequest>()
+                .ReverseMap();
 
-            CreateMap<UserDto, User>();
+            CreateMap<NewUserDto, User>();
 
-            CreateMap<User, UserDtoResponse>();
+            CreateMap<User, LoginUserDtoResponse>();
+
+            CreateMap<User, RegisterUserDtoResponse>();
         }
     }
 }

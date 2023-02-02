@@ -90,7 +90,7 @@ namespace LabelPlace.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateAsync(int id, UpdateCompanyRequest request)
         {
-            var companyDto = _mapper.Map<UpdateCompanyDto>(request);
+            var companyDto = _mapper.Map<UpdateCompanyDtoRequest>(request);
 
             await _companyService.UpdateAsync(id, companyDto);
            

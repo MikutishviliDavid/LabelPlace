@@ -14,7 +14,7 @@ namespace LabelPlace.BusinessLogic.Services.Interfaces
 
         Task<CreateCompanyDtoResponse> InsertAsync(CreateCompanyDtoRequest company);
 
-        Task UpdateAsync(int id, UpdateCompanyDto company);
+        Task UpdateAsync(int id, UpdateCompanyDtoRequest company);
 
         Task DeleteAsync(int id);
     }
