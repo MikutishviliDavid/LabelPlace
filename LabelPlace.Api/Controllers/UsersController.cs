@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using LabelPlace.Api.Configurations;
-using LabelPlace.Api.Models.RoleModels;
+using LabelPlace.Api.Models.Enums;
 using LabelPlace.Api.Models.UserModels;
 using LabelPlace.BusinessLogic.Dtos.UserDtos;
 using LabelPlace.BusinessLogic.Services.Interfaces;
@@ -79,6 +79,37 @@ namespace LabelPlace.Api.Controllers
             var token = CreateToken(userDtoResponse);
 
             return Ok(token);
+        }
+
+        [HttpPut("add-role")]
+        [Authorize(Roles = "Administrator")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> AddRoleAsync(AddUserRoleRequest request)
+        {
+            var roleTypeDto = _mapper.Map<BusinessLogic.Dtos.Enums.RoleType>(request.Type);
+
+            await _userService.AddRoleAsync(request.UserEmail, roleTypeDto);
+
+            return NoContent();
+        }
+
+        [HttpDelete("delete-role")]
+        [Authorize(Roles = "Administrator")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteRoleAsync(DeleteUserRoleRequest request)
+        {
+            var roleTypeDto = _mapper.Map<BusinessLogic.Dtos.Enums.RoleType>(request.Type);
+
+            await _userService.DeleteRoleAsync(request.UserEmail, roleTypeDto);
+
+            return NoContent();
+
         }
 
         private string CreateToken(LoginUserDtoResponse user)

@@ -58,7 +58,7 @@ namespace LabelPlace.BusinessLogic.Services
                 PasswordHash = passwordHash
             };
 
-            var role = await _unitOfWork.Roles.GetByIdAsync(1);
+            var role = await _unitOfWork.Roles.GetByTypeAsync(Domain.Enums.RoleType.Undefined);
 
             userDto.Roles.Add(role);
 
@@ -85,6 +85,52 @@ namespace LabelPlace.BusinessLogic.Services
             }
 
             return _mapper.Map<LoginUserDtoResponse>(user);
+        }
+
+        public async Task AddRoleAsync(string email, RoleType roleRequest)
+        {
+            var userByEmail = await _unitOfWork.Users.GetByEmailAsync(email);
+
+            if (userByEmail == null)
+            {
+                throw new BusinessLogicNotFoundException($"User with email: {email} not found.");
+            }
+
+            var roleType = _mapper.Map<Domain.Enums.RoleType>(roleRequest);
+
+            var role = await _unitOfWork.Roles.GetByTypeAsync(roleType);
+
+            if (role == null)
+            {
+                throw new BusinessLogicNotFoundException($"Role with type: {roleType} not found.");
+            }
+
+            userByEmail.Roles.Add(role);
+
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task DeleteRoleAsync(string email, RoleType roleRequest)
+        {
+            var userByEmail = await _unitOfWork.Users.GetByEmailAsync(email);
+
+            if (userByEmail == null)
+            {
+                throw new BusinessLogicNotFoundException($"User with email: {email} not found.");
+            }
+
+            var roleType = _mapper.Map<Domain.Enums.RoleType>(roleRequest);
+
+            var role = await _unitOfWork.Roles.GetByTypeAsync(roleType);
+
+            if (role == null)
+            {
+                throw new BusinessLogicNotFoundException($"Role with type: {roleType} not found.");
+            }
+
+            userByEmail.Roles.Remove(role);
+
+            await _unitOfWork.SaveAsync();
         }
 
         private void CreatePasswordHash(string password, out string passwordHash, out string passwordSalt)
