@@ -1,9 +1,10 @@
-﻿using LabelPlace.Domain.Enums;
+﻿using LabelPlace.BusinessLogic.Dtos.Enums;
+using LabelPlace.Domain.Entities;
 using System.Collections.Generic;
 
-namespace LabelPlace.Domain.Entities
+namespace LabelPlace.BusinessLogic.Dtos.UserDtos
 {
-    public class User : BaseIntId
+    public class NewUserDto
     {
         public string FirstName { get; set; }
 
@@ -15,8 +16,6 @@ namespace LabelPlace.Domain.Entities
 
         public string PasswordSalt { get; set; }
 
-        public HashSet<Project> Projects { get; set; } = new HashSet<Project>();
-
-        public HashSet<Role> Roles { get; set; } = new HashSet<Role>(); 
+        public HashSet<Role> Roles { get; set; } = new HashSet<Role>();
     }
 }

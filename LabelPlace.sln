@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.Domain", "LabelP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.Dal", "LabelPlace.Dal\LabelPlace.Dal.csproj", "{126E1B54-6389-45CA-B9FE-22AAFFE565A1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.BusinessLogic", "LabelPlace.BusinessLogic\LabelPlace.BusinessLogic.csproj", "{8CAADF8D-D85D-4A71-AD63-996BB29D0E96}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelPlace.UnitTests", "LabelPlace.UnitTests\LabelPlace.UnitTests.csproj", "{1C33B589-47EE-4902-9A3B-071AE12379FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{126E1B54-6389-45CA-B9FE-22AAFFE565A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{126E1B54-6389-45CA-B9FE-22AAFFE565A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{126E1B54-6389-45CA-B9FE-22AAFFE565A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CAADF8D-D85D-4A71-AD63-996BB29D0E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CAADF8D-D85D-4A71-AD63-996BB29D0E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CAADF8D-D85D-4A71-AD63-996BB29D0E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CAADF8D-D85D-4A71-AD63-996BB29D0E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C33B589-47EE-4902-9A3B-071AE12379FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C33B589-47EE-4902-9A3B-071AE12379FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C33B589-47EE-4902-9A3B-071AE12379FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C33B589-47EE-4902-9A3B-071AE12379FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
